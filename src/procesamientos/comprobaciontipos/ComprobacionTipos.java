@@ -13,6 +13,45 @@ import programa.Programa.IBloque;
 import programa.Programa.Inst;
 import programa.Programa.Prog;
 import programa.Programa.Var;
+import programa.Programa.CteChar;
+import programa.Programa.CteReal;
+import programa.Programa.CteString;
+import programa.Programa.SumaInt;
+import programa.Programa.SumaReal;
+import programa.Programa.Resta;
+import programa.Programa.RestaInt;
+import programa.Programa.RestaReal;
+import programa.Programa.Multi;
+import programa.Programa.MulInt;
+import programa.Programa.MulReal;
+import programa.Programa.Div;
+import programa.Programa.DivInt;
+import programa.Programa.DivReal;
+import programa.Programa.Concat;
+import programa.Programa.RestoEntero;
+import programa.Programa.CambiaSigno;
+import programa.Programa.Elem;
+import programa.Programa.ConvInt;
+import programa.Programa.ConvIntToInt;
+import programa.Programa.ConvRealToInt;
+import programa.Programa.ConvBoolToInt;
+import programa.Programa.ConvCharToInt;
+import programa.Programa.ConvReal;
+import programa.Programa.ConvIntToReal;
+import programa.Programa.ConvRealToReal;
+import programa.Programa.ConvBoolToReal;
+import programa.Programa.ConvCharToReal;
+import programa.Programa.ConvChar;
+import programa.Programa.ConvBool;
+import programa.Programa.ConvString;
+import programa.Programa.Or;
+import programa.Programa.Not;
+import programa.Programa.Menor;
+import programa.Programa.Mayor;
+import programa.Programa.MenorIgual;
+import programa.Programa.MayorIgual;
+import programa.Programa.Igual;
+import programa.Programa.Distinto;
 
 
 public class ComprobacionTipos extends Procesamiento { 
@@ -87,5 +126,54 @@ public class ComprobacionTipos extends Procesamiento {
         b.ponTipo(programa.tipoOk());
       else
        b.ponTipo(programa.tipoError());   
-   }     
+   }   
+   
+   //Fase 1
+   public void procesa(CteChar exp) {
+       exp.ponTipo(programa.tipoChar());
+   }
+   
+   public void procesa(CteReal exp) {
+       exp.ponTipo(programa.tipoReal());
+   }
+   public void procesa(CteString exp) {
+       exp.ponTipo(programa.tipoString());
+   }
+   public void procesa(SumaInt exp) {}
+   public void procesa(SumaReal exp) {}
+   public void procesa(Resta exp) {}
+   public void procesa(RestaInt exp) {}
+   public void procesa(RestaReal exp) {}
+   public void procesa(Multi exp) {}
+   public void procesa(MulInt exp) {}
+   public void procesa(MulReal exp) {}
+   public void procesa(Div exp) {}
+   public void procesa(DivInt exp) {}
+   public void procesa(DivReal exp) {}
+   public void procesa(Concat exp) {}
+   public void procesa(RestoEntero exp) {}
+   public void procesa(CambiaSigno exp) {}
+   public void procesa(Elem exp) {}
+   public void procesa(ConvInt exp) {}
+   public void procesa(ConvIntToInt exp) {}
+   public void procesa(ConvRealToInt exp) {}
+   public void procesa(ConvBoolToInt exp) {}
+   public void procesa(ConvCharToInt exp) {}
+   public void procesa(ConvReal exp) {}
+   public void procesa(ConvRealToReal exp) {}
+   public void procesa(ConvIntToReal exp) {}
+   public void procesa(ConvBoolToReal exp) {}
+   public void procesa(ConvCharToReal exp) {}
+   public void procesa(ConvChar exp) {}
+   public void procesa(ConvBool exp) {}
+   public void procesa(ConvString exp) {}
+   public void procesa(Or exp) {}
+   public void procesa(Not exp) {}
+   public void procesa(Mayor exp) {}
+   public void procesa(Menor exp) {}
+   public void procesa(Igual exp) {}
+   public void procesa(MayorIgual exp) {}
+   public void procesa(MenorIgual exp) {}
+   public void procesa(Distinto exp) {}
+   
 }
