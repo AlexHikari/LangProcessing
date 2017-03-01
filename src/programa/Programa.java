@@ -795,6 +795,10 @@ public abstract class Programa {
    public Tipo tipoOk() {return TOK;}
    public Tipo tipoError() {return TERROR;}
    
+   public Tipo tipoChar() {return TCHAR;}
+   public Tipo tipoReal() {return TREAL;}
+   public Tipo tipoString() {return TSTRING;}
+   
    public abstract Prog raiz();
    
 }
