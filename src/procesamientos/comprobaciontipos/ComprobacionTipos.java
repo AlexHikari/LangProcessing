@@ -73,6 +73,7 @@ public class ComprobacionTipos extends Procesamiento {
    public void procesa(CteBool exp) {
       exp.ponTipo(programa.tipoBool());
    } 
+   //modificar para que segun sea el operando llame a uno o a otro
    public void procesa(Suma exp) {
       exp.opnd1().procesaCon(this);
       exp.opnd2().procesaCon(this);
@@ -139,41 +140,375 @@ public class ComprobacionTipos extends Procesamiento {
    public void procesa(CteString exp) {
        exp.ponTipo(programa.tipoString());
    }
-   public void procesa(SumaInt exp) {}
-   public void procesa(SumaReal exp) {}
+   public void procesa(SumaInt exp) {
+      exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoInt()) &&
+         exp.opnd2().tipo().equals(programa.tipoInt())) {
+         exp.ponTipo(programa.tipoInt()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(SumaReal exp) {
+      exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoReal()) &&
+         exp.opnd2().tipo().equals(programa.tipoReal())) {
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
    public void procesa(Resta exp) {}
-   public void procesa(RestaInt exp) {}
-   public void procesa(RestaReal exp) {}
+   public void procesa(RestaInt exp) {
+       exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoInt()) &&
+         exp.opnd2().tipo().equals(programa.tipoInt())) {
+         exp.ponTipo(programa.tipoInt()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(RestaReal exp) {
+      exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoReal()) &&
+         exp.opnd2().tipo().equals(programa.tipoReal())) {
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
    public void procesa(Multi exp) {}
-   public void procesa(MulInt exp) {}
-   public void procesa(MulReal exp) {}
+   public void procesa(MulInt exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoInt()) &&
+         exp.opnd2().tipo().equals(programa.tipoInt())) {
+         exp.ponTipo(programa.tipoInt()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(MulReal exp) {
+      exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoReal()) &&
+         exp.opnd2().tipo().equals(programa.tipoReal())) {
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
    public void procesa(Div exp) {}
-   public void procesa(DivInt exp) {}
-   public void procesa(DivReal exp) {}
-   public void procesa(Concat exp) {}
-   public void procesa(RestoEntero exp) {}
-   public void procesa(CambiaSigno exp) {}
+   public void procesa(DivInt exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoInt()) &&
+         exp.opnd2().tipo().equals(programa.tipoInt())) {
+         exp.ponTipo(programa.tipoInt()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(DivReal exp) {
+      exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoReal()) &&
+         exp.opnd2().tipo().equals(programa.tipoReal())) {
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(Concat exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoString()) &&
+         exp.opnd2().tipo().equals(programa.tipoString())) {
+         exp.ponTipo(programa.tipoString()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(RestoEntero exp) {
+    exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoInt()) &&
+         exp.opnd2().tipo().equals(programa.tipoInt())) {
+         exp.ponTipo(programa.tipoInt()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(CambiaSigno exp) {
+      exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoInt()) ||
+         exp.opnd1().tipo().equals(programa.tipoReal())) {
+         exp.ponTipo(programa.tipoString()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
    public void procesa(Elem exp) {}
    public void procesa(ConvInt exp) {}
-   public void procesa(ConvIntToInt exp) {}
-   public void procesa(ConvRealToInt exp) {}
-   public void procesa(ConvBoolToInt exp) {}
-   public void procesa(ConvCharToInt exp) {}
+   public void procesa(ConvIntToInt exp) {
+      exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoInt())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(ConvRealToInt exp) {
+   exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoReal())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(ConvBoolToInt exp) {
+   exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoBool())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(ConvCharToInt exp) {
+   exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoChar())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
    public void procesa(ConvReal exp) {}
-   public void procesa(ConvRealToReal exp) {}
-   public void procesa(ConvIntToReal exp) {}
-   public void procesa(ConvBoolToReal exp) {}
-   public void procesa(ConvCharToReal exp) {}
+   public void procesa(ConvRealToReal exp) {
+   exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoReal())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(ConvIntToReal exp) {
+   exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoInt())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }  
+   }
+   public void procesa(ConvBoolToReal exp) {
+   exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoBool())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(ConvCharToReal exp) {
+    exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoChar())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
    public void procesa(ConvChar exp) {}
    public void procesa(ConvBool exp) {}
    public void procesa(ConvString exp) {}
-   public void procesa(Or exp) {}
-   public void procesa(Not exp) {}
-   public void procesa(Mayor exp) {}
-   public void procesa(Menor exp) {}
-   public void procesa(Igual exp) {}
-   public void procesa(MayorIgual exp) {}
-   public void procesa(MenorIgual exp) {}
-   public void procesa(Distinto exp) {}
+   public void procesa(Or exp) {
+      exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoBool()) &&
+         exp.opnd2().tipo().equals(programa.tipoBool())) {
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(Not exp) {
+   exp.opnd1().procesaCon(this);
+      if(exp.opnd1().tipo().equals(programa.tipoBool())){
+         exp.ponTipo(programa.tipoReal()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(Mayor exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if((exp.opnd1().tipo().equals(programa.tipoInt()) ||
+          exp.opnd1().tipo().equals(programa.tipoReal())) &&
+         (exp.opnd2().tipo().equals(programa.tipoInt()) ||
+          exp.opnd2().tipo().equals(programa.tipoReal()))){
+         exp.ponTipo(programa.tipoBool()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(Menor exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if((exp.opnd1().tipo().equals(programa.tipoInt()) ||
+          exp.opnd1().tipo().equals(programa.tipoReal())) &&
+         (exp.opnd2().tipo().equals(programa.tipoInt()) ||
+          exp.opnd2().tipo().equals(programa.tipoReal()))){
+         exp.ponTipo(programa.tipoBool()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(Igual exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if((exp.opnd1().tipo().equals(programa.tipoInt()) ||
+          exp.opnd1().tipo().equals(programa.tipoReal())) &&
+         (exp.opnd2().tipo().equals(programa.tipoInt()) ||
+          exp.opnd2().tipo().equals(programa.tipoReal()))){
+         exp.ponTipo(programa.tipoBool()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(MayorIgual exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if((exp.opnd1().tipo().equals(programa.tipoInt()) ||
+          exp.opnd1().tipo().equals(programa.tipoReal())) &&
+         (exp.opnd2().tipo().equals(programa.tipoInt()) ||
+          exp.opnd2().tipo().equals(programa.tipoReal()))){
+         exp.ponTipo(programa.tipoBool()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   public void procesa(MenorIgual exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if((exp.opnd1().tipo().equals(programa.tipoInt()) ||
+          exp.opnd1().tipo().equals(programa.tipoReal())) &&
+         (exp.opnd2().tipo().equals(programa.tipoInt()) ||
+          exp.opnd2().tipo().equals(programa.tipoReal()))){
+         exp.ponTipo(programa.tipoBool()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
+   
+   //Comprueba solo operandos del mimo tipo es asi?
+   //o puede comparar de distintos tipos
+   public void procesa(Distinto exp) {
+   exp.opnd1().procesaCon(this);
+      exp.opnd2().procesaCon(this);
+      if(exp.opnd1().tipo().equals(exp.opnd2().tipo())) {
+         exp.ponTipo(programa.tipoInt()); 
+      }
+      else {
+         if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
+             ! exp.opnd2().tipo().equals(programa.tipoError()))
+             errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
+         exp.ponTipo(programa.tipoError());
+      }     
+   }
    
 }
