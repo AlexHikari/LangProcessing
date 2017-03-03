@@ -14,25 +14,21 @@ import programa.Programa.Bool;
 import programa.Programa.Error;
 import programa.Programa.Ok;
 //Fase 1
+import programa.Programa.Stringg;
+import programa.Programa.Char;
+import programa.Programa.CteStringg;
 import programa.Programa.CteChar;
 import programa.Programa.CteReal;
-import programa.Programa.CteString;
-import programa.Programa.SumaInt;
-import programa.Programa.SumaReal;
+import programa.Programa.Unknown;
+import programa.Programa.Real;
+import programa.Programa.CteUnknown;
 import programa.Programa.Resta;
-import programa.Programa.RestaInt;
-import programa.Programa.RestaReal;
 import programa.Programa.Multi;
-import programa.Programa.MulInt;
-import programa.Programa.MulReal;
 import programa.Programa.Div;
-import programa.Programa.DivInt;
-import programa.Programa.DivReal;
 import programa.Programa.Concat;
 import programa.Programa.RestoEntero;
 import programa.Programa.CambiaSigno;
 import programa.Programa.Elem;
-import programa.Programa.CambiaSigno;
 import programa.Programa.ConvInt;
 import programa.Programa.ConvIntToInt;
 import programa.Programa.ConvIntToReal;
@@ -49,11 +45,35 @@ import programa.Programa.ConvString;
 import programa.Programa.Or;
 import programa.Programa.Not;
 import programa.Programa.Mayor;
+import programa.Programa.MayorBool;
+import programa.Programa.MayorChar;
+import programa.Programa.MayorNum;
+import programa.Programa.MayorString;
 import programa.Programa.Menor;
+import programa.Programa.MenorBool;
+import programa.Programa.MenorChar;
+import programa.Programa.MenorNum;
+import programa.Programa.MenorString;
 import programa.Programa.Igual;
+import programa.Programa.IgualBool;
+import programa.Programa.IgualChar;
+import programa.Programa.IgualNum;
+import programa.Programa.IgualString;
 import programa.Programa.MayorIgual;
+import programa.Programa.MayorIgualBool;
+import programa.Programa.MayorIgualChar;
+import programa.Programa.MayorIgualNum;
+import programa.Programa.MayorIgualString;
 import programa.Programa.MenorIgual;
+import programa.Programa.MenorIgualBool;
+import programa.Programa.MenorIgualChar;
+import programa.Programa.MenorIgualNum;
+import programa.Programa.MenorIgualString;
 import programa.Programa.Distinto;
+import programa.Programa.DistintoBool;
+import programa.Programa.DistintoChar;
+import programa.Programa.DistintoNum;
+import programa.Programa.DistintoString;
 
 
 public class Procesamiento {
@@ -71,43 +91,65 @@ public class Procesamiento {
    public void procesa(IAsig i) {}     
    public void procesa(IBloque i) {}    
    //Fase 1
+   public void procesa(CteReal exp) {}
+   public void procesa(Real t) {}
+   public void procesa(CteUnknown exp) {}
+   public void procesa(Unknown t) {}
    public void procesa(CteChar ext) {}
-   public void procesa(CteReal ext) {}
-   public void procesa(CteString ext) {}
-   public void procesa(SumaInt ext) {}
-   public void procesa(SumaReal ext) {}
-   public void procesa(Resta ext) {}
-   public void procesa(RestaInt ext) {}
-   public void procesa(RestaReal ext) {}
-   public void procesa(Multi ext) {}
-   public void procesa(MulInt ext) {}
-   public void procesa(MulReal ext) {}
-   public void procesa(Div ext) {}
-   public void procesa(DivInt ext) {}
-   public void procesa(DivReal ext) {}
-   public void procesa(Concat ext) {}
-   public void procesa(RestoEntero ext) {}
-   public void procesa(CambiaSigno ext) {}
-   public void procesa(Elem ext) {}
-   public void procesa(ConvInt ext) {}
-   public void procesa(ConvIntToInt ext) {}
-   public void procesa(ConvRealToInt ext) {}
-   public void procesa(ConvBoolToInt ext) {}
-   public void procesa(ConvCharToInt ext) {}
-   public void procesa(ConvReal ext) {}
-   public void procesa(ConvRealToReal ext) {}
-   public void procesa(ConvIntToReal ext) {}
-   public void procesa(ConvBoolToReal ext) {}
-   public void procesa(ConvCharToReal ext) {}
-   public void procesa(ConvChar ext) {}
-   public void procesa(ConvBool ext) {}
-   public void procesa(ConvString ext) {}
-   public void procesa(Or ext) {}
-   public void procesa(Not ext) {}
-   public void procesa(Mayor ext) {}
-   public void procesa(Menor ext) {}
-   public void procesa(Igual ext) {}
-   public void procesa(MayorIgual ext) {}
-   public void procesa(MenorIgual ext) {}
-   public void procesa(Distinto ext) {}
+   public void procesa(CteStringg exp) {}
+   public void procesa(Stringg t) {}
+   public void procesa(Char t) {}
+   public void procesa(Resta exp) {}
+   public void procesa(Multi exp) {}
+   public void procesa(Div exp) {}
+   public void procesa(Concat exp) {}
+   public void procesa(RestoEntero exp) {}
+   public void procesa(CambiaSigno exp) {}
+   public void procesa(Elem exp) {}
+   public void procesa(ConvInt exp) {}
+   public void procesa(ConvIntToInt exp) {}
+   public void procesa(ConvRealToInt exp) {}
+   public void procesa(ConvBoolToInt exp) {}
+   public void procesa(ConvCharToInt exp) {}
+   public void procesa(ConvReal exp) {}
+   public void procesa(ConvRealToReal exp) {}
+   public void procesa(ConvIntToReal exp) {}
+   public void procesa(ConvBoolToReal exp) {}
+   public void procesa(ConvCharToReal exp) {}
+   public void procesa(ConvChar exp) {}
+   public void procesa(ConvBool exp) {}
+   public void procesa(ConvString exp) {}
+   public void procesa(Or exp) {}
+   public void procesa(Not exp) {}
+   public void procesa(Mayor exp) {}
+   public void procesa(MayorBool exp) {}
+   public void procesa(MayorChar exp) {}
+   public void procesa(MayorString exp) {}
+   public void procesa(MayorNum exp) {}
+   public void procesa(Menor exp) {}
+   public void procesa(MenorBool exp) {}
+   public void procesa(MenorChar exp) {}
+   public void procesa(MenorString exp) {}
+   public void procesa(MenorNum exp) {}
+   public void procesa(Igual exp) {}
+   public void procesa(IgualBool exp) {}
+   public void procesa(IgualChar exp) {}
+   public void procesa(IgualString exp) {}
+   public void procesa(IgualNum exp) {}
+   public void procesa(MayorIgual exp) {}
+   public void procesa(MayorIgualBool exp) {}
+   public void procesa(MayorIgualChar exp) {}
+   public void procesa(MayorIgualString exp) {}
+   public void procesa(MayorIgualNum exp) {}
+   public void procesa(MenorIgual exp) {}
+   public void procesa(MenorIgualBool exp) {}
+   public void procesa(MenorIgualChar exp) {}
+   public void procesa(MenorIgualString exp) {}
+   public void procesa(MenorIgualNum exp) {}
+   public void procesa(Distinto exp) {}
+   public void procesa(DistintoBool exp) {}
+   public void procesa(DistintoChar exp) {}
+   public void procesa(DistintoString exp) {}
+   public void procesa(DistintoNum exp) {}
+
 }
