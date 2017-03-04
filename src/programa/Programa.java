@@ -8,11 +8,9 @@ public abstract class Programa {
     private final Tipo TBOOL;
     private final Tipo TOK;
     private final Tipo TERROR;
-    //nuevos tipos para practica 1
     private final Tipo TREAL;
     private final Tipo TSTRING;
     private final Tipo TCHAR;
-    private final Tipo TUNKNOWN;
 
     public Programa() {
         TENT = new Int();
@@ -22,7 +20,6 @@ public abstract class Programa {
         TREAL = new Real();
         TSTRING = new Stringg();
         TCHAR = new Char();
-        TUNKNOWN = new Unknown();
     }
 
     public interface Tipo {
@@ -73,8 +70,6 @@ public abstract class Programa {
             return "ERROR";
         }
     }
-
-    //declaracion de tipos para variables practica 1
     public class Real implements Tipo {
 
         public void acepta(Procesamiento p) {
@@ -85,7 +80,6 @@ public abstract class Programa {
             return "REAL";
         }
     }
-
     public class Stringg implements Tipo {
 
         public void acepta(Procesamiento p) {
@@ -96,7 +90,6 @@ public abstract class Programa {
             return "STRING";
         }
     }
-
     public class Char implements Tipo {
 
         public void acepta(Procesamiento p) {
@@ -105,17 +98,6 @@ public abstract class Programa {
 
         public String toString() {
             return "CHAR";
-        }
-    }
-
-    public class Unknown implements Tipo {
-
-        public void acepta(Procesamiento p) {
-            p.procesa(this);
-        }
-
-        public String toString() {
-            return "UNKNOWN";
         }
     }
 
@@ -394,7 +376,7 @@ public abstract class Programa {
             this.val = val;
         }
 
-        public double valChar() {
+        public double valReal() {
             return val;
         }
 
@@ -402,34 +384,15 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
-    //*************************************************************************************************************
-
-    public class CteUnknown extends Exp {
-
-        private Unknown val;
-
-        public CteUnknown(Unknown val) {
-            this.val = val;
-        }
-
-        public Unknown valUnknown() {
-            return val;
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class CteStringg extends Exp {
+    public class CteString extends Exp {
 
         private String val;
 
-        public CteStringg(String val) {
+        public CteString(String val) {
             this.val = val;
         }
 
-        public String valChar() {
+        public String valString() {
             return val;
         }
 
@@ -467,7 +430,6 @@ public abstract class Programa {
         }
     }
 
-    //expresion unaria cambio de signo practica 1
     private abstract class ExpUna extends Exp {
 
         private Exp opnd1;
@@ -626,66 +588,6 @@ public abstract class Programa {
         }
     }
 
-    public class ConvIntToInt extends ExpUna {
-
-        public ConvIntToInt(Exp opnd1) {
-            this(opnd1, null);
-        }
-
-        public ConvIntToInt(Exp opnd1, String enlaceFuente) {
-            super(opnd1, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class ConvRealToInt extends ExpUna {
-
-        public ConvRealToInt(Exp opnd1) {
-            this(opnd1, null);
-        }
-
-        public ConvRealToInt(Exp opnd1, String enlaceFuente) {
-            super(opnd1, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class ConvBoolToInt extends ExpUna {
-
-        public ConvBoolToInt(Exp opnd1) {
-            this(opnd1, null);
-        }
-
-        public ConvBoolToInt(Exp opnd1, String enlaceFuente) {
-            super(opnd1, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class ConvCharToInt extends ExpUna {
-
-        public ConvCharToInt(Exp opnd1) {
-            this(opnd1, null);
-        }
-
-        public ConvCharToInt(Exp opnd1, String enlaceFuente) {
-            super(opnd1, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
     public class ConvReal extends ExpUna {
 
         public ConvReal(Exp opnd1) {
@@ -700,67 +602,6 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
-
-    public class ConvRealToReal extends ExpUna {
-
-        public ConvRealToReal(Exp opnd1) {
-            this(opnd1, null);
-        }
-
-        public ConvRealToReal(Exp opnd1, String enlaceFuente) {
-            super(opnd1, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class ConvIntToReal extends ExpUna {
-
-        public ConvIntToReal(Exp opnd1) {
-            this(opnd1, null);
-        }
-
-        public ConvIntToReal(Exp opnd1, String enlaceFuente) {
-            super(opnd1, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class ConvBoolToReal extends ExpUna {
-
-        public ConvBoolToReal(Exp opnd1) {
-            this(opnd1, null);
-        }
-
-        public ConvBoolToReal(Exp opnd1, String enlaceFuente) {
-            super(opnd1, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class ConvCharToReal extends ExpUna {
-
-        public ConvCharToReal(Exp opnd1) {
-            this(opnd1, null);
-        }
-
-        public ConvCharToReal(Exp opnd1, String enlaceFuente) {
-            super(opnd1, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
     public class ConvChar extends ExpUna {
 
         public ConvChar(Exp opnd1) {
@@ -867,66 +708,6 @@ public abstract class Programa {
         }
     }
 
-    public class MayorNum extends ExpBin {
-
-        public MayorNum(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MayorNum(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MayorChar extends ExpBin {
-
-        public MayorChar(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MayorChar(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MayorBool extends ExpBin {
-
-        public MayorBool(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MayorBool(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MayorString extends ExpBin {
-
-        public MayorString(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MayorString(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
     public class Menor extends ExpBin {
 
         public Menor(Exp opnd1, Exp opnd2) {
@@ -941,67 +722,6 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
-
-    public class MenorNum extends ExpBin {
-
-        public MenorNum(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MenorNum(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MenorChar extends ExpBin {
-
-        public MenorChar(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MenorChar(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MenorBool extends ExpBin {
-
-        public MenorBool(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MenorBool(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MenorString extends ExpBin {
-
-        public MenorString(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MenorString(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
     public class Igual extends ExpBin {
 
         public Igual(Exp opnd1, Exp opnd2) {
@@ -1016,67 +736,6 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
-
-    public class IgualNum extends ExpBin {
-
-        public IgualNum(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public IgualNum(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class IgualChar extends ExpBin {
-
-        public IgualChar(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public IgualChar(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class IgualBool extends ExpBin {
-
-        public IgualBool(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public IgualBool(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class IgualString extends ExpBin {
-
-        public IgualString(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public IgualString(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
     public class MayorIgual extends ExpBin {
 
         public MayorIgual(Exp opnd1, Exp opnd2) {
@@ -1084,66 +743,6 @@ public abstract class Programa {
         }
 
         public MayorIgual(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MayorIgualNum extends ExpBin {
-
-        public MayorIgualNum(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MayorIgualNum(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MayorIgualChar extends ExpBin {
-
-        public MayorIgualChar(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MayorIgualChar(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MayorIgualBool extends ExpBin {
-
-        public MayorIgualBool(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MayorIgualBool(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MayorIgualString extends ExpBin {
-
-        public MayorIgualString(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MayorIgualString(Exp opnd1, Exp opnd2, String enlaceFuente) {
             super(opnd1, opnd2, enlaceFuente);
         }
 
@@ -1167,66 +766,6 @@ public abstract class Programa {
         }
     }
 
-    public class MenorIgualNum extends ExpBin {
-
-        public MenorIgualNum(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MenorIgualNum(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MenorIgualChar extends ExpBin {
-
-        public MenorIgualChar(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MenorIgualChar(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MenorIgualBool extends ExpBin {
-
-        public MenorIgualBool(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MenorIgualBool(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class MenorIgualString extends ExpBin {
-
-        public MenorIgualString(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public MenorIgualString(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
     public class Distinto extends ExpBin {
 
         public Distinto(Exp opnd1, Exp opnd2) {
@@ -1234,66 +773,6 @@ public abstract class Programa {
         }
 
         public Distinto(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class DistintoNum extends ExpBin {
-
-        public DistintoNum(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public DistintoNum(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class DistintoChar extends ExpBin {
-
-        public DistintoChar(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public DistintoChar(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class DistintoBool extends ExpBin {
-
-        public DistintoBool(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public DistintoBool(Exp opnd1, Exp opnd2, String enlaceFuente) {
-            super(opnd1, opnd2, enlaceFuente);
-        }
-
-        public void procesaCon(Procesamiento p) {
-            p.procesa(this);
-        }
-    }
-
-    public class DistintoString extends ExpBin {
-
-        public DistintoString(Exp opnd1, Exp opnd2) {
-            this(opnd1, opnd2, null);
-        }
-
-        public DistintoString(Exp opnd1, Exp opnd2, String enlaceFuente) {
             super(opnd1, opnd2, enlaceFuente);
         }
 
@@ -1382,12 +861,8 @@ public abstract class Programa {
         return TREAL;
     }
 
-    public Tipo tipoStringg() {
+    public Tipo tipoString() {
         return TSTRING;
-    }
-
-    public Tipo tipoUnknown() {
-        return TUNKNOWN;
     }
     public abstract Prog raiz();
 

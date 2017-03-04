@@ -11,10 +11,9 @@ import programa.Programa.Prog;
 import programa.Programa.IAsig;
 import programa.Programa.IBloque;
 import programa.Programa.And;
-import programa.Programa.CteStringg;
+import programa.Programa.CteString;
 import programa.Programa.CteChar;
 import programa.Programa.CteReal;
-import programa.Programa.CteUnknown;
 import programa.Programa.Resta;
 import programa.Programa.Multi;
 import programa.Programa.Div;
@@ -23,50 +22,18 @@ import programa.Programa.RestoEntero;
 import programa.Programa.CambiaSigno;
 import programa.Programa.Elem;
 import programa.Programa.ConvInt;
-import programa.Programa.ConvIntToInt;
-import programa.Programa.ConvIntToReal;
-import programa.Programa.ConvBoolToInt;
-import programa.Programa.ConvCharToInt;
 import programa.Programa.ConvReal;
-import programa.Programa.ConvRealToInt;
-import programa.Programa.ConvRealToReal;
-import programa.Programa.ConvBoolToReal;
-import programa.Programa.ConvCharToReal;
 import programa.Programa.ConvChar;
 import programa.Programa.ConvBool;
 import programa.Programa.ConvString;
 import programa.Programa.Or;
 import programa.Programa.Not;
 import programa.Programa.Mayor;
-import programa.Programa.MayorBool;
-import programa.Programa.MayorChar;
-import programa.Programa.MayorNum;
-import programa.Programa.MayorString;
 import programa.Programa.Menor;
-import programa.Programa.MenorBool;
-import programa.Programa.MenorChar;
-import programa.Programa.MenorNum;
-import programa.Programa.MenorString;
 import programa.Programa.Igual;
-import programa.Programa.IgualBool;
-import programa.Programa.IgualChar;
-import programa.Programa.IgualNum;
-import programa.Programa.IgualString;
 import programa.Programa.MayorIgual;
-import programa.Programa.MayorIgualBool;
-import programa.Programa.MayorIgualChar;
-import programa.Programa.MayorIgualNum;
-import programa.Programa.MayorIgualString;
 import programa.Programa.MenorIgual;
-import programa.Programa.MenorIgualBool;
-import programa.Programa.MenorIgualChar;
-import programa.Programa.MenorIgualNum;
-import programa.Programa.MenorIgualString;
 import programa.Programa.Distinto;
-import programa.Programa.DistintoBool;
-import programa.Programa.DistintoChar;
-import programa.Programa.DistintoNum;
-import programa.Programa.DistintoString;
 
 
 public class ComprobacionTipos extends Procesamiento { 
@@ -93,9 +60,9 @@ public class ComprobacionTipos extends Procesamiento {
    public void procesa(Suma exp) {
       exp.opnd1().procesaCon(this);
       exp.opnd2().procesaCon(this);
-      if(exp.opnd1().tipo().equals(programa.tipoStringg()) &&
-         exp.opnd2().tipo().equals(programa.tipoStringg())) {
-         exp.ponTipo(programa.tipoStringg()); 
+      if(exp.opnd1().tipo().equals(programa.tipoString()) &&
+         exp.opnd2().tipo().equals(programa.tipoString())) {
+         exp.ponTipo(programa.tipoString()); 
       }
       else if (exp.opnd1().tipo().equals(programa.tipoInt()) &&
                exp.opnd2().tipo().equals(programa.tipoInt())) {
@@ -162,11 +129,8 @@ public class ComprobacionTipos extends Procesamiento {
    public void procesa(CteReal exp) {
        exp.ponTipo(programa.tipoReal());
    }
-   public void procesa(CteStringg exp) {
-       exp.ponTipo(programa.tipoStringg());
-   }
-   public void procesa(CteUnknown exp) {
-       exp.ponTipo(programa.tipoUnknown());
+   public void procesa(CteString exp) {
+       exp.ponTipo(programa.tipoString());
    }
    
    public void procesa(Resta exp) {
@@ -229,9 +193,9 @@ public class ComprobacionTipos extends Procesamiento {
    public void procesa(Concat exp) {
    exp.opnd1().procesaCon(this);
       exp.opnd2().procesaCon(this);
-      if(exp.opnd1().tipo().equals(programa.tipoStringg()) &&
-         exp.opnd2().tipo().equals(programa.tipoStringg())) {
-         exp.ponTipo(programa.tipoStringg()); 
+      if(exp.opnd1().tipo().equals(programa.tipoString()) &&
+         exp.opnd2().tipo().equals(programa.tipoString())) {
+         exp.ponTipo(programa.tipoString()); 
       }
       else {
          if (! exp.opnd1().tipo().equals(programa.tipoError()) &&
@@ -271,7 +235,7 @@ public class ComprobacionTipos extends Procesamiento {
    public void procesa(Elem exp) {
     exp.opnd1().procesaCon(this);
     exp.opnd2().procesaCon(this);
-      if((exp.opnd1().tipo().equals(programa.tipoStringg())) &&
+      if((exp.opnd1().tipo().equals(programa.tipoString())) &&
           exp.opnd2().tipo().equals(programa.tipoInt())){
          exp.ponTipo(programa.tipoChar()); 
       }
@@ -302,23 +266,6 @@ public class ComprobacionTipos extends Procesamiento {
          exp.ponTipo(programa.tipoError());
       }
    }
-   public void procesa(ConvIntToInt exp) {
-      exp.opnd1().procesaCon(this);
-      exp.ponTipo(programa.tipoInt()); 
-    }
-      
-   public void procesa(ConvRealToInt exp) {
-      exp.opnd1().procesaCon(this);
-      exp.ponTipo(programa.tipoInt()); 
-   }
-   public void procesa(ConvBoolToInt exp) {
-      exp.opnd1().procesaCon(this);
-      exp.ponTipo(programa.tipoInt()); 
-   }
-   public void procesa(ConvCharToInt exp) {
-      exp.opnd1().procesaCon(this);
-      exp.ponTipo(programa.tipoInt()); 
-   }
    public void procesa(ConvReal exp) {
        exp.opnd1().procesaCon(this);
       if(exp.opnd1().tipo().equals(programa.tipoInt())){
@@ -339,23 +286,7 @@ public class ComprobacionTipos extends Procesamiento {
          exp.ponTipo(programa.tipoError());
       }
    }
-   public void procesa(ConvRealToReal exp) {
-      exp.opnd1().procesaCon(this);
-      exp.ponTipo(programa.tipoReal());
-   }
-   public void procesa(ConvIntToReal exp) {
-      exp.opnd1().procesaCon(this);
-      exp.ponTipo(programa.tipoReal());
-   }
-   public void procesa(ConvBoolToReal exp) {
-      exp.opnd1().procesaCon(this);
-      exp.ponTipo(programa.tipoReal());
-   }
-   public void procesa(ConvCharToReal exp) {
-      exp.opnd1().procesaCon(this);
-      exp.ponTipo(programa.tipoReal());   
-   }
-   public void procesa(ConvChar exp) {
+public void procesa(ConvChar exp) {
    if(exp.opnd1().tipo().equals(programa.tipoInt())){
          exp.ponTipo(programa.tipoChar()); 
       }
@@ -377,7 +308,7 @@ public class ComprobacionTipos extends Procesamiento {
    }
    public void procesa(ConvString exp) {
    if(exp.opnd1().tipo().equals(programa.tipoChar())){
-         exp.ponTipo(programa.tipoStringg()); 
+         exp.ponTipo(programa.tipoString()); 
       }
       else {
           if (! exp.opnd1().tipo().equals(programa.tipoError()))
@@ -428,27 +359,6 @@ public class ComprobacionTipos extends Procesamiento {
          exp.ponTipo(programa.tipoError());
       }     
    }
-   public void procesa(MayorBool exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MayorChar exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MayorNum exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MayorString exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   
    public void procesa(Menor exp) {
    exp.opnd1().procesaCon(this);
       exp.opnd2().procesaCon(this);
@@ -468,27 +378,6 @@ public class ComprobacionTipos extends Procesamiento {
          exp.ponTipo(programa.tipoError());
       }     
    }
-   public void procesa(MenorBool exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MenorChar exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MenorNum exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MenorString exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   
    public void procesa(Igual exp) {
    exp.opnd1().procesaCon(this);
       exp.opnd2().procesaCon(this);
@@ -508,27 +397,7 @@ public class ComprobacionTipos extends Procesamiento {
          exp.ponTipo(programa.tipoError());
       }     
    }
-   public void procesa(IgualBool exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(IgualChar exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(IgualNum exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(IgualString exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   
+
    public void procesa(MayorIgual exp) {
    exp.opnd1().procesaCon(this);
       exp.opnd2().procesaCon(this);
@@ -548,26 +417,6 @@ public class ComprobacionTipos extends Procesamiento {
          exp.ponTipo(programa.tipoError());
       }
    }    
-   public void procesa(MayorIgualBool exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MayorIgualChar exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MayorIgualNum exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MayorIgualString exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
    public void procesa(MenorIgual exp) {
    exp.opnd1().procesaCon(this);
       exp.opnd2().procesaCon(this);
@@ -586,27 +435,6 @@ public class ComprobacionTipos extends Procesamiento {
              errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
          exp.ponTipo(programa.tipoError());
       }     
-   }
-   
-   public void procesa(MenorIgualBool exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MenorIgualChar exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MenorIgualNum exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(MenorIgualString exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
    }
    
    //Comprueba solo operandos del mimo tipo es asi?
@@ -629,25 +457,5 @@ public class ComprobacionTipos extends Procesamiento {
              errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
          exp.ponTipo(programa.tipoError());
       }     
-   }
-   public void procesa(DistintoBool exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(DistintoChar exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(DistintoNum exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
-   }
-   public void procesa(DistintoString exp){
-      exp.opnd1().procesaCon(this);
-      exp.opnd2().procesaCon(this);
-      exp.ponTipo(programa.tipoBool());
    }
 }

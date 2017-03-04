@@ -45,7 +45,7 @@ public class Prueba extends Programa {
            AsignacionDirecciones asignaciondirs = new AsignacionDirecciones();
            programa.raiz().procesaCon(asignaciondirs);
            MaquinaP maquina = new MaquinaP(asignaciondirs.tamanioDatos());
-           GeneracionDeCodigo generacioncod = new GeneracionDeCodigo(maquina);
+           GeneracionDeCodigo generacioncod = new GeneracionDeCodigo(maquina,programa);
            programa.raiz().procesaCon(generacioncod);
            maquina.muestraCodigo(); 
            maquina.ejecuta();

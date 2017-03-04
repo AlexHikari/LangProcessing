@@ -21,50 +21,18 @@ import programa.Programa.RestoEntero;
 import programa.Programa.CambiaSigno;
 import programa.Programa.Elem;
 import programa.Programa.ConvInt;
-import programa.Programa.ConvIntToInt;
-import programa.Programa.ConvIntToReal;
-import programa.Programa.ConvBoolToInt;
-import programa.Programa.ConvCharToInt;
 import programa.Programa.ConvReal;
-import programa.Programa.ConvRealToInt;
-import programa.Programa.ConvRealToReal;
-import programa.Programa.ConvBoolToReal;
-import programa.Programa.ConvCharToReal;
 import programa.Programa.ConvChar;
 import programa.Programa.ConvBool;
 import programa.Programa.ConvString;
 import programa.Programa.Or;
 import programa.Programa.Not;
 import programa.Programa.Mayor;
-import programa.Programa.MayorBool;
-import programa.Programa.MayorChar;
-import programa.Programa.MayorNum;
-import programa.Programa.MayorString;
 import programa.Programa.Menor;
-import programa.Programa.MenorBool;
-import programa.Programa.MenorChar;
-import programa.Programa.MenorNum;
-import programa.Programa.MenorString;
 import programa.Programa.Igual;
-import programa.Programa.IgualBool;
-import programa.Programa.IgualChar;
-import programa.Programa.IgualNum;
-import programa.Programa.IgualString;
 import programa.Programa.MayorIgual;
-import programa.Programa.MayorIgualBool;
-import programa.Programa.MayorIgualChar;
-import programa.Programa.MayorIgualNum;
-import programa.Programa.MayorIgualString;
 import programa.Programa.MenorIgual;
-import programa.Programa.MenorIgualBool;
-import programa.Programa.MenorIgualChar;
-import programa.Programa.MenorIgualNum;
-import programa.Programa.MenorIgualString;
 import programa.Programa.Distinto;
-import programa.Programa.DistintoBool;
-import programa.Programa.DistintoChar;
-import programa.Programa.DistintoNum;
-import programa.Programa.DistintoString;
 
 public class Vinculacion extends Procesamiento {
    private final static String ERROR_ID_DUPLICADO="Identificador ya declarado";
@@ -126,7 +94,6 @@ public class Vinculacion extends Procesamiento {
      else {
         exp.ponDeclaracion(decVar); 
      }
-       
    } 
    public void procesa(Resta exp) {
    exp.opnd1().procesaCon(this);
@@ -158,31 +125,7 @@ public class Vinculacion extends Procesamiento {
    public void procesa(ConvInt exp) {
    exp.opnd1().procesaCon(this);
    }
-   public void procesa(ConvIntToInt exp) {
-   exp.opnd1().procesaCon(this);
-   }
-   public void procesa(ConvRealToInt exp) {
-   exp.opnd1().procesaCon(this);
-   }
-   public void procesa(ConvBoolToInt exp) {
-   exp.opnd1().procesaCon(this);
-   }
-   public void procesa(ConvCharToInt exp) {
-   exp.opnd1().procesaCon(this);
-   }
    public void procesa(ConvReal exp) {
-   exp.opnd1().procesaCon(this);
-   }
-   public void procesa(ConvRealToReal exp) {
-   exp.opnd1().procesaCon(this);
-   }
-   public void procesa(ConvIntToReal exp) {
-   exp.opnd1().procesaCon(this);
-   }
-   public void procesa(ConvBoolToReal exp) {
-   exp.opnd1().procesaCon(this);
-   }
-   public void procesa(ConvCharToReal exp) {
    exp.opnd1().procesaCon(this);
    }
    public void procesa(ConvChar exp) {
@@ -205,40 +148,7 @@ public class Vinculacion extends Procesamiento {
    exp.opnd1().procesaCon(this);
      exp.opnd2().procesaCon(this);
    }
-   public void procesa(MayorNum exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MayorBool exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MayorChar exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MayorString exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
    public void procesa(Menor exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   
-   public void procesa(MenorNum exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MenorBool exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MenorChar exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MenorString exp) {
    exp.opnd1().procesaCon(this);
      exp.opnd2().procesaCon(this);
    }
@@ -246,39 +156,7 @@ public class Vinculacion extends Procesamiento {
    exp.opnd1().procesaCon(this);
      exp.opnd2().procesaCon(this);
    }
-   public void procesa(IgualNum exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(IgualBool exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(IgualChar exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(IgualString exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
    public void procesa(MayorIgual exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MayorIgualNum exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MayorIgualBool exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MayorIgualChar exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MayorIgualString exp) {
    exp.opnd1().procesaCon(this);
      exp.opnd2().procesaCon(this);
    }
@@ -286,41 +164,8 @@ public class Vinculacion extends Procesamiento {
    exp.opnd1().procesaCon(this);
      exp.opnd2().procesaCon(this);
    }
-   public void procesa(MenorIgualNum exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MenorIgualBool exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MenorIgualChar exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(MenorIgualString exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
    public void procesa(Distinto exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   
-   public void procesa(DistintoNum exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(DistintoBool exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(DistintoChar exp) {
-   exp.opnd1().procesaCon(this);
-     exp.opnd2().procesaCon(this);
-   }
-   public void procesa(DistintoString exp) {
-   exp.opnd1().procesaCon(this);
+     exp.opnd1().procesaCon(this);
      exp.opnd2().procesaCon(this);
    }
 }
