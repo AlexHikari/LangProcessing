@@ -10,10 +10,7 @@ import procesamientos.generacioncodigo.GeneracionDeCodigo;
 import procesamientos.impresion.Impresion;
 import programa.Programa;
 
-
-public class Prueba extends Programa {
-   private Prog programa;
-   public Prueba() {
+/*
      programa = prog(new Dec[]{decvar(tipoInt(),"x","linea1"),
                                decvar(tipoInt(),"y","linea2"),
                                decvar(tipoBool(),"z","linea3")
@@ -26,6 +23,18 @@ public class Prueba extends Programa {
                                      iasig("y",  
                                          suma(suma(var("y","linea 6"),cteint(6),"linea 6"),
                                               cteint(25),"linea 6"), "linea 6")
+                                   })); 
+*/
+public class Prueba extends Programa {
+   private Prog programa;
+   public Prueba() {
+     programa = prog(new Dec[]{decvar(tipoInt(),"x","linea1"),
+                               decvar(tipoInt(),"y","linea2"),
+                               decvar(tipoBool(),"z","linea3")
+                              }, 
+                     ibloque(
+                          new Inst[]{
+                                   
                                    }));  
    }
    public Prog raiz() {

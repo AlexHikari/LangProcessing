@@ -40,6 +40,7 @@ import programa.Programa.MayorIgual;
 import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
 import programa.Programa.ILee;
+import programa.Programa.IEscribe;
 
 
 public class Procesamiento {
@@ -82,6 +83,6 @@ public class Procesamiento {
    public void procesa(MayorIgual exp) {}
    public void procesa(MenorIgual exp) {}
    public void procesa(Distinto exp) {}
-   public void procesa(ILee i){}
-
+   public void procesa(ILee i) {}
+   public void procesa(IEscribe i) {}
 }

@@ -22,6 +22,7 @@ public class MaquinaP {
          this.valor = valor; 
       }
       public int valorInt() {return valor;}
+      public double valorReal() {return valor;}
       public String toString() {
         return String.valueOf(valor);
       }
@@ -1205,6 +1206,68 @@ public class MaquinaP {
       public String toString() {return "lee string";};
    }
    
+   private IEscribeInt IESCRIBEINT;
+   private class IEscribeInt implements Instruccion {
+      public void ejecuta() {
+         Valor exp = pilaEvaluacion.pop();
+         Valor resul;
+         resul = new ValorInt(exp.valorInt());
+         System.out.println("Valor de la expresion ->" + resul.valorInt());
+         pilaEvaluacion.push(resul);
+         pc++;
+      } 
+      public String toString() {return "escribe string";};
+
+   }
+   private IEscribeReal IESCRIBEREAL;
+   private class IEscribeReal implements Instruccion {
+      public void ejecuta() {
+         Valor exp = pilaEvaluacion.pop();
+         Valor resul;
+         resul = new ValorReal(exp.valorReal());
+         System.out.println("Valor de la expresion ->" +resul.valorReal());
+         pilaEvaluacion.push(resul);
+         pc++;
+      } 
+      public String toString() {return "escribe real";};
+   }
+   private IEscribeBool IESCRIBEBOOL;
+   private class IEscribeBool implements Instruccion {
+      public void ejecuta() {
+                  Valor exp = pilaEvaluacion.pop();
+         Valor resul;
+         resul = new ValorBool(exp.valorBool());
+         System.out.println("Valor de la expresion ->" + resul.valorBool());
+         pilaEvaluacion.push(resul);
+         pc++;
+      } 
+      public String toString() {return "escribe bool";};
+   }
+   private IEscribeChar IESCRIBECHAR;
+   private class IEscribeChar implements Instruccion {
+      public void ejecuta() {
+         Valor exp = pilaEvaluacion.pop();
+         Valor resul;
+         resul = new ValorChar(exp.valorChar());
+         System.out.println("Valor de la expresion ->" + resul.valorChar());
+         pilaEvaluacion.push(resul);
+         pc++;
+      } 
+      public String toString() {return "escribe char";};
+   }
+   private IEscribeString IESCRIBESTRING;
+   private class IEscribeString implements Instruccion {
+      public void ejecuta() {
+         Valor exp = pilaEvaluacion.pop();
+         Valor resul;
+         resul = new ValorString(exp.valorString());
+         System.out.println("Valor de la expresion ->" + resul.valorString());
+         pilaEvaluacion.push(resul);
+         pc++;
+      } 
+      public String toString() {return "escribe string";};
+   }
+   
    
    
    private class IApilaInt implements Instruccion {
@@ -1373,6 +1436,11 @@ public class MaquinaP {
    public Instruccion leeBool(){return ILEEBOOL;}
    public Instruccion leeChar(){return ILEECHAR;}
    public Instruccion leeString(){return ILEESTRING;}
+   public Instruccion EscribeInt(){return IESCRIBEINT;}
+   public Instruccion EscribeReal(){return IESCRIBEREAL;}
+   public Instruccion EscribeBool(){return IESCRIBEBOOL;}
+   public Instruccion EscribeChar(){return IESCRIBECHAR;}
+   public Instruccion EscribeString(){return IESCRIBESTRING;}
    public void addInstruccion(Instruccion i) {
       codigoP.add(i); 
    }
@@ -1442,6 +1510,11 @@ public class MaquinaP {
       ILEECHAR = new ILeeChar();
       ILEEBOOL = new ILeeBool();
       ILEESTRING = new ILeeString();
+      IESCRIBEINT = new IEscribeInt();
+      IESCRIBEREAL = new IEscribeReal();
+      IESCRIBECHAR = new IEscribeChar();
+      IESCRIBEBOOL = new IEscribeBool();
+      IESCRIBESTRING = new IEscribeString();
       
       UNKNOWN = new ValorUnknown();
    }

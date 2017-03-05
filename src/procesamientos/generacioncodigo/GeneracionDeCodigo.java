@@ -34,6 +34,7 @@ import programa.Programa.IBloque;
 import programa.Programa.IAsig;
 import programa.Programa.Var;
 import programa.Programa.ILee;
+import programa.Programa.IEscribe;
 
 
 public class GeneracionDeCodigo extends Procesamiento {
@@ -310,5 +311,18 @@ public class GeneracionDeCodigo extends Procesamiento {
            maquina.addInstruccion(maquina.leeString());
        
        maquina.addInstruccion(maquina.desapilaDir(i.declaracion().dir()));
+   }
+   public void procesa(IEscribe i){
+       if(i.exp().tipo().equals(programa.tipoInt()))
+           maquina.addInstruccion(maquina.EscribeInt());
+       else if (i.exp().tipo().equals(programa.tipoReal()))
+           maquina.addInstruccion(maquina.EscribeReal());
+       else if (i.exp().tipo().equals(programa.tipoBool()))
+           maquina.addInstruccion(maquina.EscribeBool());
+       else if (i.exp().tipo().equals(programa.tipoChar()))
+           maquina.addInstruccion(maquina.EscribeChar());
+       else if (i.exp().tipo().equals(programa.tipoString()))
+           maquina.addInstruccion(maquina.EscribeString());
+       
    }
 }

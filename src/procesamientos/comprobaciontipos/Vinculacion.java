@@ -33,6 +33,8 @@ import programa.Programa.Igual;
 import programa.Programa.MayorIgual;
 import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
+import programa.Programa.ILee;
+import programa.Programa.IEscribe;
 
 public class Vinculacion extends Procesamiento {
    private final static String ERROR_ID_DUPLICADO="Identificador ya declarado";
@@ -69,7 +71,22 @@ public class Vinculacion extends Procesamiento {
         i.ponDeclaracion(decVar); 
      }
      i.exp().procesaCon(this);
-   }     
+   }
+   public void procesa(ILee i){
+    DecVar decVar = tablaDeSimbolos.get(i.var());
+    if(decVar == null){
+        error = true; 
+        errores.msg(i.enlaceFuente()+":"+ERROR_ID_NO_DECLARADO+"("+i.var()+")");
+    }
+    else{
+        i.ponDeclaracion(decVar);
+    }
+   }
+   
+   public void procesa(IEscribe i){
+        i.exp().procesaCon(this);
+   }
+   
    public void procesa(IBloque b) {
      for (Programa.Inst i: b.is())
          i.procesaCon(this);

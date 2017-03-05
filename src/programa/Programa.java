@@ -276,6 +276,34 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
+    
+    public class IEscribe extends Inst{
+
+        private String enlaceFuente;
+        private Exp exp;
+        
+        public IEscribe(Exp exp,String enlaceFuente){
+            this.exp = exp;
+            this.enlaceFuente = enlaceFuente;
+        }
+        public IEscribe(Exp exp){
+            this(exp, null);
+        }
+        
+        public Exp exp(){
+            return exp;
+        }
+        public String enlaceFuente() {
+            return enlaceFuente;
+        }
+
+        public void procesaCon(Procesamiento p) {
+           p.procesa(this); 
+        }
+    
+    
+    
+    }
 
     public class IBloque extends Inst {
 
@@ -849,6 +877,13 @@ public abstract class Programa {
         return new ILee(v,enlaceFuente);
     }
 
+    public Inst iescribe(Exp e){
+        return new IEscribe(e);
+    }
+    
+    public Inst iescribe(Exp e, String enlaceFuente){
+        return new IEscribe(e,enlaceFuente);
+    }
     public Exp var(String id) {
         return new Var(id);
     }
