@@ -14,6 +14,31 @@ import programa.Programa.IBloque;
 import programa.Programa.Inst;
 import programa.Programa.Prog;
 import programa.Programa.Var;
+import programa.Programa.CteString;
+import programa.Programa.CteChar;
+import programa.Programa.CteReal;
+import programa.Programa.Resta;
+import programa.Programa.Multi;
+import programa.Programa.Div;
+import programa.Programa.Concat;
+import programa.Programa.RestoEntero;
+import programa.Programa.CambiaSigno;
+import programa.Programa.Elem;
+import programa.Programa.ConvInt;
+import programa.Programa.ConvReal;
+import programa.Programa.ConvChar;
+import programa.Programa.ConvBool;
+import programa.Programa.ConvString;
+import programa.Programa.Or;
+import programa.Programa.Not;
+import programa.Programa.Mayor;
+import programa.Programa.Menor;
+import programa.Programa.Igual;
+import programa.Programa.MayorIgual;
+import programa.Programa.MenorIgual;
+import programa.Programa.Distinto;
+import programa.Programa.ILee;
+import programa.Programa.IEscribe;
 
 
 public class Impresion extends Procesamiento {
@@ -105,5 +130,195 @@ public class Impresion extends Procesamiento {
       System.out.print("}");
       imprimeAtributos(b);
       System.out.println();
-   }     
+   }   
+   
+   public void procesa(CteReal exp) {
+     System.out.print(exp.valReal());
+     imprimeAtributos(exp);
+   }
+   
+   public void procesa(CteChar exp) {
+     System.out.print(exp.valChar());
+     imprimeAtributos(exp);
+   }
+   
+   public void procesa(CteString exp) {
+     System.out.print(exp.valString());
+     imprimeAtributos(exp);
+   }
+   
+   public void procesa(Resta exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print('-');
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Multi exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print('*');
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Div exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print('/');
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Concat exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print("++");
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(RestoEntero exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print('%');
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(CambiaSigno exp) {
+     System.out.print('('); 
+     System.out.print('('); 
+     System.out.print("-1"); 
+     System.out.print(')'); 
+     exp.opnd1().procesaCon(this);     
+     imprimeAtributos(exp);    
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Elem exp) {
+     System.out.print('('); 
+     System.out.print("Elem");
+     exp.opnd1().procesaCon(this);     
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Or exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print("||");
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Mayor exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print('>');
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Menor exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print('<');
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(MayorIgual exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print(">=");
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(MenorIgual exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print("MenorIgual");
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Igual exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print("==");
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(Distinto exp) {
+     System.out.print('('); 
+     exp.opnd1().procesaCon(this);
+     System.out.print("!=");
+     imprimeAtributos(exp);
+     exp.opnd2().procesaCon(this);
+     System.out.print(')'); 
+   } 
+
+   public void procesa(Not exp) {
+     System.out.print('('); 
+     System.out.print('¬');
+     exp.opnd1().procesaCon(this);     
+     imprimeAtributos(exp);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(ConvInt exp) {
+     System.out.print('('); 
+     System.out.print("ConvInt");
+     exp.opnd1().procesaCon(this);     
+     imprimeAtributos(exp);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(ConvChar exp) {
+     System.out.print('('); 
+     System.out.print("ConvChar");
+     exp.opnd1().procesaCon(this);     
+     imprimeAtributos(exp);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(ConvReal exp) {
+     System.out.print('('); 
+     System.out.print("ConvReal");
+     exp.opnd1().procesaCon(this);     
+     imprimeAtributos(exp);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(ConvBool exp) {
+     System.out.print('('); 
+     System.out.print("ConvBool");
+     exp.opnd1().procesaCon(this);     
+     imprimeAtributos(exp);
+     System.out.print(')'); 
+   } 
+   
+   public void procesa(ConvString exp) {
+     System.out.print('('); 
+     System.out.print("ConvString");
+     exp.opnd1().procesaCon(this);     
+     imprimeAtributos(exp);
+     System.out.print(')'); 
+   } 
 }   
