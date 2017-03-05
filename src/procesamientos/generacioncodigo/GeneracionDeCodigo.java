@@ -13,10 +13,27 @@ import programa.Programa.Resta;
 import programa.Programa.Multi;
 import programa.Programa.Div;
 import programa.Programa.And;
+import programa.Programa.RestoEntero;
+import programa.Programa.CambiaSigno;
+import programa.Programa.Elem;
+import programa.Programa.ConvBool;
+import programa.Programa.ConvChar;
+import programa.Programa.ConvInt;
+import programa.Programa.ConvReal;
+import programa.Programa.ConvString;
+import programa.Programa.Or;
+import programa.Programa.Not;
+import programa.Programa.Igual;
+import programa.Programa.Mayor;
+import programa.Programa.Menor;
+import programa.Programa.MayorIgual;
+import programa.Programa.MenorIgual;
+import programa.Programa.Distinto;
 import programa.Programa.Prog;
 import programa.Programa.IBloque;
 import programa.Programa.IAsig;
 import programa.Programa.Var;
+import programa.Programa.ILee;
 
 
 public class GeneracionDeCodigo extends Procesamiento {
@@ -56,8 +73,12 @@ public class GeneracionDeCodigo extends Procesamiento {
        }
        //sino solamente pueden ser de tipo in real o real int
        else{
-               maquina.addInstruccion(maquina.convIntToReal());
-               maquina.addInstruccion(maquina.sumaReal());
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))
+               maquina.addInstruccion(maquina.convIntToReal(0));
+           else
+               maquina.addInstruccion(maquina.convIntToReal(1));
+           
+           maquina.addInstruccion(maquina.sumReals());
            
        }      
    }
@@ -71,8 +92,12 @@ public class GeneracionDeCodigo extends Procesamiento {
        }
        //sino solamente pueden ser de tipo int real o real int
        else{
-               maquina.addInstruccion(maquina.convIntToReal());
-               maquina.addInstruccion(maquina.resReals());
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))
+               maquina.addInstruccion(maquina.convIntToReal(0));
+           else
+               maquina.addInstruccion(maquina.convIntToReal(1));
+           
+           maquina.addInstruccion(maquina.resReals());
            
        }      
    }
@@ -86,8 +111,12 @@ public class GeneracionDeCodigo extends Procesamiento {
        }
        //sino solamente pueden ser de tipo int real o real int
        else{
-               maquina.addInstruccion(maquina.convIntToReal());
-               maquina.addInstruccion(maquina.mulReals());    
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))
+               maquina.addInstruccion(maquina.convIntToReal(0));
+           else
+               maquina.addInstruccion(maquina.convIntToReal(1));
+           
+           maquina.addInstruccion(maquina.mulReals());    
        }      
    }
     public void procesa(Div exp) {
@@ -100,15 +129,163 @@ public class GeneracionDeCodigo extends Procesamiento {
        }
        //sino solamente pueden ser de tipo int real o real int
        else{
-               maquina.addInstruccion(maquina.convIntToReal());
-               maquina.addInstruccion(maquina.divReals());    
+            if(exp.opnd1().tipo().equals(programa.tipoInt()))
+               maquina.addInstruccion(maquina.convIntToReal(0));
+            else
+               maquina.addInstruccion(maquina.convIntToReal(1));
+            
+            maquina.addInstruccion(maquina.divReals());    
        }      
    }
+    public void procesa(RestoEntero exp){
+       exp.opnd1().procesaCon(this);
+       exp.opnd2().procesaCon(this);
+       maquina.addInstruccion(maquina.restoInt());
+    }
+    public void procesa(CambiaSigno exp){
+        exp.opnd1().procesaCon(this);
+        if(exp.opnd1().tipo().equals(programa.tipoInt()))
+            maquina.addInstruccion(maquina.cambiaSigno("INT"));
+        else
+            maquina.addInstruccion(maquina.cambiaSigno("REAL"));
+    }
+    public void procesa(Elem exp){
+        exp.opnd1().procesaCon(this);
+        exp.opnd2().procesaCon(this);
+        maquina.addInstruccion(maquina.getElem());
+    }
+    public void procesa(ConvInt exp){
+        exp.opnd1().procesaCon(this);
+        if(exp.opnd1().tipo().equals(programa.tipoInt())){ maquina.addInstruccion(maquina.convIntToInt());}
+        else if (exp.opnd1().tipo().equals(programa.tipoReal())){maquina.addInstruccion(maquina.convRealToInt());}
+        else if (exp.opnd1().tipo().equals(programa.tipoBool())){maquina.addInstruccion(maquina.convBoolToInt());}
+        else if (exp.opnd1().tipo().equals(programa.tipoChar())){maquina.addInstruccion(maquina.convCharToInt());}
+    }
+    public void procesa(ConvReal exp){
+        exp.opnd1().procesaCon(this);
+        if(exp.opnd1().tipo().equals(programa.tipoInt())){maquina.addInstruccion(maquina.convIntToReal());}
+        else if (exp.opnd1().tipo().equals(programa.tipoReal())){maquina.addInstruccion(maquina.convRealToReal());}
+        else if (exp.opnd1().tipo().equals(programa.tipoBool())){maquina.addInstruccion(maquina.convBoolToReal());}
+        else if (exp.opnd1().tipo().equals(programa.tipoChar())){maquina.addInstruccion(maquina.convCharToReal());}
+    }
+    public void procesa(ConvChar exp){
+        exp.opnd1().procesaCon(this);
+        maquina.addInstruccion(maquina.convIntToChar());
+    }
+    public void procesa(ConvBool exp){
+        exp.opnd1().procesaCon(this);
+        maquina.addInstruccion(maquina.convIntToBool());
+    }
+    public void procesa(ConvString exp){
+        exp.opnd1().procesaCon(this);
+        maquina.addInstruccion(maquina.convCharToString());
+    }
    public void procesa(And exp) {
        exp.opnd1().procesaCon(this);
        exp.opnd2().procesaCon(this);
        maquina.addInstruccion(maquina.and());         
    }   
+   public void procesa(Or exp) {
+       exp.opnd1().procesaCon(this);
+       exp.opnd2().procesaCon(this);
+       maquina.addInstruccion(maquina.or());         
+   }
+   public void procesa(Not exp) {
+       exp.opnd1().procesaCon(this);
+       maquina.addInstruccion(maquina.not());         
+   }  
+   public void procesa(Igual exp){
+       exp.opnd1().procesaCon(this);
+       exp.opnd2().procesaCon(this);
+       if(exp.opnd1().tipo().equals(exp.opnd2().tipo())){
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))maquina.addInstruccion(maquina.igualInts());
+           else if(exp.opnd1().tipo().equals(programa.tipoReal()))maquina.addInstruccion(maquina.igualReals());
+           else if(exp.opnd1().tipo().equals(programa.tipoBool()))maquina.addInstruccion(maquina.igualBools());
+           else if(exp.opnd1().tipo().equals(programa.tipoChar()))maquina.addInstruccion(maquina.igualChars());
+           else {maquina.addInstruccion(maquina.igualStrings());}
+       }
+       else
+           maquina.addInstruccion(maquina.igualReals());
+       
+
+   } 
+      public void procesa(Menor exp){
+       exp.opnd1().procesaCon(this);
+       exp.opnd2().procesaCon(this);
+       if(exp.opnd1().tipo().equals(exp.opnd2().tipo())){
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))maquina.addInstruccion(maquina.menorInts());
+           else if(exp.opnd1().tipo().equals(programa.tipoReal()))maquina.addInstruccion(maquina.menorReals());
+           else if(exp.opnd1().tipo().equals(programa.tipoBool()))maquina.addInstruccion(maquina.menorBools());
+           else if(exp.opnd1().tipo().equals(programa.tipoChar()))maquina.addInstruccion(maquina.menorChars());
+           else {maquina.addInstruccion(maquina.menorStrings());}
+       }
+       else{
+           maquina.addInstruccion(maquina.menorReals());
+       }
+
+   } 
+   public void procesa(Mayor exp){
+       exp.opnd1().procesaCon(this);
+       exp.opnd2().procesaCon(this);
+       if(exp.opnd1().tipo().equals(exp.opnd2().tipo())){
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))maquina.addInstruccion(maquina.mayorInts());
+           else if(exp.opnd1().tipo().equals(programa.tipoReal()))maquina.addInstruccion(maquina.mayorReals());
+           else if(exp.opnd1().tipo().equals(programa.tipoBool()))maquina.addInstruccion(maquina.mayorBools());
+           else if(exp.opnd1().tipo().equals(programa.tipoChar()))maquina.addInstruccion(maquina.mayorChars());
+           else {maquina.addInstruccion(maquina.mayorStrings());}
+       }
+       else{
+           maquina.addInstruccion(maquina.mayorReals());
+       }
+
+   } 
+    public void procesa(MenorIgual exp){
+       exp.opnd1().procesaCon(this);
+       exp.opnd2().procesaCon(this);
+       if(exp.opnd1().tipo().equals(exp.opnd2().tipo())){
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))maquina.addInstruccion(maquina.menorIgualInts());
+           else if(exp.opnd1().tipo().equals(programa.tipoReal()))maquina.addInstruccion(maquina.menorIgualReals());
+           else if(exp.opnd1().tipo().equals(programa.tipoBool()))maquina.addInstruccion(maquina.menorIgualBools());
+           else if(exp.opnd1().tipo().equals(programa.tipoChar()))maquina.addInstruccion(maquina.menorIgualChars());
+           else {maquina.addInstruccion(maquina.menorIgualStrings());}
+       }
+       else{
+           maquina.addInstruccion(maquina.menorIgualReals());
+       }
+
+   } 
+    public void procesa(MayorIgual exp){
+       exp.opnd1().procesaCon(this);
+       exp.opnd2().procesaCon(this);
+       if(exp.opnd1().tipo().equals(exp.opnd2().tipo())){
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))maquina.addInstruccion(maquina.mayorIgualInts());
+           else if(exp.opnd1().tipo().equals(programa.tipoReal()))maquina.addInstruccion(maquina.mayorIgualReals());
+           else if(exp.opnd1().tipo().equals(programa.tipoBool()))maquina.addInstruccion(maquina.mayorIgualBools());
+           else if(exp.opnd1().tipo().equals(programa.tipoChar()))maquina.addInstruccion(maquina.mayorIgualChars());
+           else {maquina.addInstruccion(maquina.mayorIgualStrings());}
+       }
+       else{
+           maquina.addInstruccion(maquina.mayorIgualReals());
+       }
+
+   }
+       public void procesa(Distinto exp){
+       exp.opnd1().procesaCon(this);
+       exp.opnd2().procesaCon(this);
+       if(exp.opnd1().tipo().equals(exp.opnd2().tipo())){
+           if(exp.opnd1().tipo().equals(programa.tipoInt()))maquina.addInstruccion(maquina.distintoInts());
+           else if(exp.opnd1().tipo().equals(programa.tipoReal()))maquina.addInstruccion(maquina.distintoReals());
+           else if(exp.opnd1().tipo().equals(programa.tipoBool()))maquina.addInstruccion(maquina.distintoBools());
+           else if(exp.opnd1().tipo().equals(programa.tipoChar()))maquina.addInstruccion(maquina.distintoChars());
+           else {maquina.addInstruccion(maquina.distintoStrings());}
+       }
+       else{
+           maquina.addInstruccion(maquina.distintoReals());
+       }
+
+   } 
+    
+    
    public void procesa(Prog p) {
       p.inst().procesaCon(this);
    }     
@@ -119,5 +296,19 @@ public class GeneracionDeCodigo extends Procesamiento {
    public void procesa(IBloque b) {
       for(Programa.Inst i: b.is())
           i.procesaCon(this);
-   }     
+   }
+   public void procesa(ILee i){
+       if(i.declaracion().tipoDec().equals(programa.tipoInt()))
+           maquina.addInstruccion(maquina.leeInt());
+       else if (i.declaracion().tipoDec().equals(programa.tipoReal()))
+           maquina.addInstruccion(maquina.leeReal());
+       else if (i.declaracion().tipoDec().equals(programa.tipoBool()))
+           maquina.addInstruccion(maquina.leeBool());
+       else if (i.declaracion().tipoDec().equals(programa.tipoChar()))
+           maquina.addInstruccion(maquina.leeChar());
+       else if (i.declaracion().tipoDec().equals(programa.tipoString()))
+           maquina.addInstruccion(maquina.leeString());
+       
+       maquina.addInstruccion(maquina.desapilaDir(i.declaracion().dir()));
+   }
 }

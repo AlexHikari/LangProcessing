@@ -34,6 +34,7 @@ import programa.Programa.Igual;
 import programa.Programa.MayorIgual;
 import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
+import programa.Programa.ILee;
 
 
 public class ComprobacionTipos extends Procesamiento { 
@@ -457,5 +458,9 @@ public void procesa(ConvChar exp) {
              errores.msg(exp.enlaceFuente()+":"+ERROR_TIPO_OPERANDOS);
          exp.ponTipo(programa.tipoError());
       }     
+   }
+   public void procesa(ILee i){
+        i.procesaCon(this);
+        i.ponTipo(programa.tipoOk());
    }
 }

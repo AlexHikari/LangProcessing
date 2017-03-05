@@ -12,6 +12,7 @@ public abstract class Programa {
     private final Tipo TSTRING;
     private final Tipo TCHAR;
 
+
     public Programa() {
         TENT = new Int();
         TBOOL = new Bool();
@@ -26,7 +27,6 @@ public abstract class Programa {
 
         void acepta(Procesamiento p);
     }
-
     public class Int implements Tipo {
 
         public void acepta(Procesamiento p) {
@@ -242,6 +242,40 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
+    
+    public class ILee extends Inst{
+        
+        private String var;
+        private String enlaceFuente;
+        private DecVar declaracion;
+        public ILee(String var, String enlaceFuente){
+            this.var = var;
+            this.enlaceFuente = enlaceFuente;
+            this.declaracion = null;  
+        }
+        public ILee(String var){
+            this(var,null);
+        }
+        public String var() {
+            return var;
+        }
+
+        public DecVar declaracion() {
+            return declaracion;
+        }
+
+        public String enlaceFuente() {
+            return enlaceFuente;
+        }
+
+        public void ponDeclaracion(DecVar d) {
+            declaracion = d;
+        }
+
+        public void procesaCon(Procesamiento p) {
+            p.procesa(this);
+        }
+    }
 
     public class IBloque extends Inst {
 
@@ -349,7 +383,6 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
-    // declaracion cte practica 1
 
     public class CteChar extends Exp {
 
@@ -384,6 +417,7 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
+    
     public class CteString extends Exp {
 
         private String val;
@@ -602,6 +636,7 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
+    
     public class ConvChar extends ExpUna {
 
         public ConvChar(Exp opnd1) {
@@ -692,7 +727,6 @@ public abstract class Programa {
         }
     }
 
-    //*********************************************************************
     public class Mayor extends ExpBin {
 
         public Mayor(Exp opnd1, Exp opnd2) {
@@ -722,6 +756,7 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
+    
     public class Igual extends ExpBin {
 
         public Igual(Exp opnd1, Exp opnd2) {
@@ -736,6 +771,7 @@ public abstract class Programa {
             p.procesa(this);
         }
     }
+    
     public class MayorIgual extends ExpBin {
 
         public MayorIgual(Exp opnd1, Exp opnd2) {
@@ -804,6 +840,14 @@ public abstract class Programa {
     public Inst ibloque(Inst[] is) {
         return new IBloque(is);
     }
+    
+    public Inst ilee(String v){
+        return new ILee(v);
+    }
+    
+    public Inst ilee(String v,String enlaceFuente){
+        return new ILee(v,enlaceFuente);
+    }
 
     public Exp var(String id) {
         return new Var(id);
@@ -836,6 +880,7 @@ public abstract class Programa {
     public Exp and(Exp exp1, Exp exp2, String enlaceFuente) {
         return new And(exp1, exp2, enlaceFuente);
     }
+    
 
     public Tipo tipoInt() {
         return TENT;
