@@ -36,6 +36,7 @@ import programa.Programa.Var;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IIfThen;
+import programa.Programa.IIfThenElse;
 import programa.Programa.IWhile;
 
 
@@ -312,5 +313,12 @@ public class GeneracionDeCodigo extends Procesamiento {
        i.exp().procesaCon(this);
        maquina.addInstruccion(maquina.irF(i.dirInstruccionSiguiente()));
        i.cuerpo().procesaCon(this);   
+   }
+   public void procesa(IIfThenElse i){
+       i.exp().procesaCon(this);
+       maquina.addInstruccion(maquina.irF(i.dirInstElse()));
+       i.cuerpo0().procesaCon(this);
+       maquina.addInstruccion(maquina.irA(i.dirInstruccionSiguiente()));
+       i.cuerpo1().procesaCon(this);
    }
 }

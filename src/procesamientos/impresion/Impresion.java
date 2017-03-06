@@ -41,6 +41,7 @@ import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IWhile;
 import programa.Programa.IIfThen;
+import programa.Programa.IIfThenElse;
 
 
 public class Impresion extends Procesamiento {
@@ -362,5 +363,24 @@ public class Impresion extends Procesamiento {
       System.out.print("}");
       imprimeAtributos(b);
       System.out.println();
-   }  
+   }
+   public void procesa(IIfThenElse b) {
+      identa(); 
+      System.out.print("if ");
+      b.exp().procesaCon(this);
+      System.out.println(" then {");
+      identacion += 3;
+      b.cuerpo0().procesaCon(this);
+      identacion -=3;
+      identa();
+      System.out.print("}");
+      System.out.println("else {");
+      identacion +=3;
+      b.cuerpo1().procesaCon(this);
+      identacion -=3;
+      identa();
+      System.out.print("}");
+      imprimeAtributos(b);
+      System.out.println();
+   } 
 }   

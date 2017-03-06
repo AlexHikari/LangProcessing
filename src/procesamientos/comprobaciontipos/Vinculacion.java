@@ -36,6 +36,7 @@ import programa.Programa.Distinto;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IIfThen;
+import programa.Programa.IIfThenElse;
 import programa.Programa.IWhile;
 
 public class Vinculacion extends Procesamiento {
@@ -195,5 +196,10 @@ public class Vinculacion extends Procesamiento {
    public void procesa(IIfThen i) {
      i.exp().procesaCon(this);
      i.cuerpo().procesaCon(this);
+   } 
+   public void procesa(IIfThenElse i) {
+     i.exp().procesaCon(this);
+     i.cuerpo0().procesaCon(this);
+     i.cuerpo1().procesaCon(this);
    } 
 }

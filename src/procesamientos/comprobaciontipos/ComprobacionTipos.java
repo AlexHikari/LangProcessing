@@ -38,6 +38,7 @@ import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IWhile;
 import programa.Programa.IIfThen;
+import programa.Programa.IIfThenElse;
 
 
 public class ComprobacionTipos extends Procesamiento { 
@@ -501,6 +502,24 @@ public void procesa(ConvChar exp) {
       i.cuerpo().procesaCon(this);
        if(i.exp().tipo().equals(programa.tipoBool()) &&
           i.cuerpo().tipo().equals(programa.tipoOk())) {
+          i.ponTipo(programa.tipoOk()); 
+       }
+       else {
+          i.ponTipo(programa.tipoError()); 
+       }
+      
+      
+      }
+      public void procesa(IIfThenElse i) {
+      i.exp().procesaCon(this);
+      if (! i.exp().tipo().equals(programa.tipoError()) &&
+          ! i.exp().tipo().equals(programa.tipoBool())) {
+           errores.msg(i.enlaceFuente()+":"+ERROR_COND);
+       } 
+      i.cuerpo0().procesaCon(this);
+      i.cuerpo1().procesaCon(this);
+       if(i.exp().tipo().equals(programa.tipoBool()) &&
+          i.cuerpo0().tipo().equals(programa.tipoOk()) && i.cuerpo1().tipo().equals(programa.tipoOk())) {
           i.ponTipo(programa.tipoOk()); 
        }
        else {

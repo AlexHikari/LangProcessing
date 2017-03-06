@@ -360,7 +360,34 @@ public abstract class Programa {
        }
        
        }
-   
+       public class IIfThenElse extends Inst {
+       
+       private Exp exp;
+       private Inst cuerpo0;
+       private Inst cuerpo1;
+       private String enlaceFuente;
+       private int dirInstElse;
+       public IIfThenElse(Exp exp, Inst cuerpo0, Inst cuerpo1) {
+           this(exp,cuerpo0,cuerpo1,null);
+       }
+       public IIfThenElse(Exp exp, Inst cuerpo0, Inst cuerpo1, String enlaceFuente){
+            this.exp = exp;
+            this.cuerpo0 = cuerpo0;
+            this.cuerpo1 = cuerpo1;
+            this.enlaceFuente = enlaceFuente;
+       }
+       public Exp exp() {return exp;}
+       public Inst cuerpo0() {return cuerpo0;}
+       public Inst cuerpo1() {return cuerpo1;}
+       public int dirInstElse(){return dirInstElse;}
+       public void ponDireccionElse(int dir){ dirInstElse = dir;}
+       public String enlaceFuente() {return enlaceFuente;}
+      
+       public void procesaCon(Procesamiento p) {
+         p.procesa(this);
+       }
+       
+       }
 
     public class IBloque extends Inst {
 
@@ -1157,6 +1184,12 @@ public abstract class Programa {
    }
    public Inst iifthen(Exp exp, Inst cuerpo, String enlaceFuente) {
       return new IIfThen(exp,cuerpo,enlaceFuente);  
+   }
+   public Inst iifthenelse(Exp exp, Inst cuerpoif,Inst cuerpoelse) {
+      return new IIfThenElse(exp,cuerpoif,cuerpoelse);  
+   }
+   public Inst iifthenelse(Exp exp, Inst cuerpoif,Inst cuerpoelse, String enlaceFuente) {
+      return new IIfThenElse(exp,cuerpoif,cuerpoelse,enlaceFuente);  
    }
    
     public Tipo tipoInt() {
