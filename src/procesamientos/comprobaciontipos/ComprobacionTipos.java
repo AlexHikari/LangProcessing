@@ -36,11 +36,13 @@ import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
+import programa.Programa.IWhile;
 
 
 public class ComprobacionTipos extends Procesamiento { 
    private final static String ERROR_TIPO_OPERANDOS="Los tipos de los operandos no son correctos";
    private final static String ERROR_ASIG="Tipos no compatibles en asignacion";
+   private final static String ERROR_COND="Tipo erroneo en condicion";
    private Programa programa;
    private Errores errores;
    public ComprobacionTipos(Programa programa, Errores errores) {
@@ -472,4 +474,21 @@ public void procesa(ConvChar exp) {
        else
            i.ponTipo(programa.tipoOk());
    }
+   
+      public void procesa(IWhile i) {
+       i.exp().procesaCon(this);
+       if (! i.exp().tipo().equals(programa.tipoError()) &&
+           ! i.exp().tipo().equals(programa.tipoBool())) {
+           errores.msg(i.enlaceFuente()+":"+ERROR_COND);
+       
+       }   
+       i.cuerpo().procesaCon(this);
+       if(i.exp().tipo().equals(programa.tipoBool()) &&
+          i.cuerpo().tipo().equals(programa.tipoOk())) {
+          i.ponTipo(programa.tipoOk()); 
+       }
+       else {
+          i.ponTipo(programa.tipoError()); 
+       }
+   }     
 }

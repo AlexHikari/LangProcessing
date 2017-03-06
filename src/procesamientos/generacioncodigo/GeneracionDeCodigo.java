@@ -35,6 +35,7 @@ import programa.Programa.IAsig;
 import programa.Programa.Var;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
+import programa.Programa.IWhile;
 
 
 public class GeneracionDeCodigo extends Procesamiento {
@@ -300,4 +301,10 @@ public class GeneracionDeCodigo extends Procesamiento {
            maquina.addInstruccion(maquina.EscribeString());
        
    }
+   public void procesa(IWhile i) {
+      i.exp().procesaCon(this);
+      maquina.addInstruccion(maquina.irF(i.dirInstruccionSiguiente()));
+      i.cuerpo().procesaCon(this);
+      maquina.addInstruccion(maquina.irA(i.dirPrimeraInstruccion()));      
+   } 
 }

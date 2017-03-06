@@ -39,6 +39,7 @@ import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
+import programa.Programa.IWhile;
 
 
 public class Impresion extends Procesamiento {
@@ -334,4 +335,18 @@ public class Impresion extends Procesamiento {
      imprimeAtributos(i.exp());
      System.out.print(")");
    }
+     
+     public void procesa(IWhile b) {
+      identa(); 
+      System.out.print("while ");
+      b.exp().procesaCon(this);
+      System.out.println(" do {");
+      identacion += 3;
+      b.cuerpo().procesaCon(this);
+      identacion -=3;
+      identa();
+      System.out.print("}");
+      imprimeAtributos(b);
+      System.out.println();
+   }   
 }   

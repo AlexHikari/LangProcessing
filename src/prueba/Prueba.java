@@ -6,6 +6,7 @@ import maquinaP.MaquinaP;
 import procesamientos.comprobaciontipos.ComprobacionTipos;
 import procesamientos.comprobaciontipos.Vinculacion;
 import procesamientos.generacioncodigo.AsignacionDirecciones;
+import procesamientos.generacioncodigo.Etiquetado;
 import procesamientos.generacioncodigo.GeneracionDeCodigo;
 import procesamientos.impresion.Impresion;
 import programa.Programa;
@@ -53,6 +54,10 @@ public class Prueba extends Programa {
         if (programa.raiz().tipo().equals(programa.tipoOk())) {
            AsignacionDirecciones asignaciondirs = new AsignacionDirecciones();
            programa.raiz().procesaCon(asignaciondirs);
+           Etiquetado etiquetado = new Etiquetado();
+           programa.raiz().procesaCon(etiquetado);
+           impresion = new Impresion(true);
+           programa.raiz().procesaCon(impresion);
            MaquinaP maquina = new MaquinaP(asignaciondirs.tamanioDatos());
            GeneracionDeCodigo generacioncod = new GeneracionDeCodigo(maquina,programa);
            programa.raiz().procesaCon(generacioncod);

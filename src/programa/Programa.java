@@ -184,6 +184,8 @@ public abstract class Programa {
     public abstract class Inst {
 
         private Tipo tipo;
+        private int dirPrimeraInstruccion;
+        private int dirInstruccionSiguiente;
 
         public Inst() {
             tipo = null;
@@ -196,7 +198,17 @@ public abstract class Programa {
         public void ponTipo(Tipo tipo) {
             this.tipo = tipo;
         }
+        
+        public void ponDirPrimeraInstruccion(int dir){
+            dirPrimeraInstruccion = dir;
+        }
 
+        public void ponDirInstruccionSiguiente(int dir){
+            dirInstruccionSiguiente = dir;
+        }
+        
+        public int dirPrimeraInstruccion(){ return dirPrimeraInstruccion;}
+        public int dirInstruccionSiguiente() {return dirInstruccionSiguiente;}
         public abstract void procesaCon(Procesamiento p);
     }
 
@@ -304,6 +316,28 @@ public abstract class Programa {
     
     
     }
+    
+       public class IWhile extends Inst {
+       private Exp exp;
+       private Inst cuerpo;
+       private String enlaceFuente;
+       public IWhile(Exp exp, Inst cuerpo) {
+          this(exp,cuerpo,null); 
+       }
+       public IWhile(Exp exp, Inst cuerpo, String enlaceFuente) {
+          this.exp = exp;
+          this.cuerpo = cuerpo;
+          this.enlaceFuente = enlaceFuente;
+       }
+       public Exp exp() {return exp;}
+       public Inst cuerpo() {return cuerpo;}
+       public String enlaceFuente() {return enlaceFuente;}
+      
+       public void procesaCon(Procesamiento p) {
+         p.procesa(this);
+       }
+   }   
+   
 
     public class IBloque extends Inst {
 
@@ -325,6 +359,8 @@ public abstract class Programa {
     public abstract class Exp {
 
         private Tipo tipo;
+        private int dirPrimeraInstruccion;
+        private int dirInstruccionSiguiente;
 
         public Exp() {
             tipo = null;
@@ -336,6 +372,18 @@ public abstract class Programa {
 
         public Tipo tipo() {
             return tipo;
+        }
+         public int dirPrimeraInstruccion() {
+         return dirPrimeraInstruccion;
+        }
+        public void ponDirPrimeraInstruccion(int dir) {
+           dirPrimeraInstruccion = dir;
+        }
+        public int dirInstruccionSiguiente() {
+            return dirInstruccionSiguiente;
+        }
+        public void ponDirInstruccionSiguiente(int dir) {
+           dirInstruccionSiguiente = dir;
         }
 
         public abstract void procesaCon(Procesamiento p);
@@ -1075,6 +1123,12 @@ public abstract class Programa {
      public Exp Distinto (Exp exp1, Exp exp2){
         return new Distinto(exp1, exp2);
     }
+   public Inst iwhile(Exp exp, Inst cuerpo) {
+      return new IWhile(exp,cuerpo);  
+   }
+   public Inst iwhile(Exp exp, Inst cuerpo, String enlaceFuente) {
+      return new IWhile(exp,cuerpo,enlaceFuente);  
+   }
     
     public Tipo tipoInt() {
         return TENT;

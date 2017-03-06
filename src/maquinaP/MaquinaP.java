@@ -1312,6 +1312,33 @@ public class MaquinaP {
       public String toString() {return "apilaBool("+valor+")";};
    }
    
+      private class IIrA implements Instruccion {
+      private int dir;
+      public IIrA(int dir) {
+        this.dir = dir;  
+      }
+      public void ejecuta() {
+            pc=dir;
+      } 
+      public String toString() {return "ira("+dir+")";};
+   }
+
+      private class IIrF implements Instruccion {
+      private int dir;
+      public IIrF(int dir) {
+        this.dir = dir;  
+      }
+      public void ejecuta() {
+         if(! pilaEvaluacion.pop().valorBool()) { 
+            pc=dir;
+         }   
+         else {
+            pc++; 
+         }
+      } 
+      public String toString() {return "irf("+dir+")";};
+   }
+   
    public Instruccion sumInts() {return ISUMINTS;}
    public Instruccion sumReals() {return ISUMREALS;}
    public Instruccion concat() {return ICONCAT;}
@@ -1390,6 +1417,9 @@ public class MaquinaP {
    public Instruccion EscribeBool(){return IESCRIBEBOOL;}
    public Instruccion EscribeChar(){return IESCRIBECHAR;}
    public Instruccion EscribeString(){return IESCRIBESTRING;}
+   public Instruccion irA(int dir) {return new IIrA(dir);}
+   public Instruccion irF(int dir) {return new IIrF(dir);}
+
    public void addInstruccion(Instruccion i) {
       codigoP.add(i); 
    }
