@@ -36,8 +36,10 @@ public class Prueba extends Programa {
                      ibloque(
                           new Inst[]{
                                    iasig("x",cteint(0),"linea 1"),
-                                   iifthenelse(Mayor(var("x"),cteint(10)),iasig("x",suma(var("x"), cteint(1))),iasig("y",cteint(13)),"linea 2"),
-                                   }));  
+                                   iasig("y",cteint(15),"linea 2"),
+                                   iwhile(menor(var("x"),var("y"),"linea 3"), iasig("x",suma(var("x"),cteint(1)),"linea 4"),"linea 3"),
+                                   iifthenelse(menor(var("x"),cteint(10),"linea 5"),iasig("x",suma(var("x"), cteint(1)),"linea 5"),iasig("z",ctebool(true),"linea 6"),"linea 4"),
+                                   }));
    }
    public Prog raiz() {
       return programa; 

@@ -1050,65 +1050,65 @@ public abstract class Programa {
         return new Div(exp1, exp2, enlaceFuente);
     }
     
-    public Exp Concatena (Exp exp1, Exp exp2, String enlaceFuente){
+    public Exp concatena (Exp exp1, Exp exp2, String enlaceFuente){
         return new Concat(exp1, exp2, enlaceFuente);
     }
-     public Exp Concatena (Exp exp1, Exp exp2){
+     public Exp concatena (Exp exp1, Exp exp2){
         return new Concat(exp1, exp2);
     }
      
-     public Exp RestoEntero (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp restoentero (Exp exp1, Exp exp2, String enlaceFuente){
         return new RestoEntero(exp1, exp2, enlaceFuente);
     }
-     public Exp RestoEntero (Exp exp1, Exp exp2){
+     public Exp restoentero (Exp exp1, Exp exp2){
         return new RestoEntero(exp1, exp2);
     }
      
-     public Exp CambiaSigno (Exp exp1, String enlaceFuente){
+     public Exp cambiasigno (Exp exp1, String enlaceFuente){
         return new CambiaSigno(exp1, enlaceFuente);
     }
-     public Exp CambiaSigno (Exp exp1){
+     public Exp cambiasigno (Exp exp1){
         return new CambiaSigno(exp1);
     }
      
-     public Exp Elem (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp elem (Exp exp1, Exp exp2, String enlaceFuente){
         return new Elem(exp1, exp2, enlaceFuente);
     }
-     public Exp Elem (Exp exp1, Exp exp2){
+     public Exp elem (Exp exp1, Exp exp2){
         return new Elem(exp1, exp2);
     }
-     public Exp ConvInt (Exp exp1,String enlaceFuente){
+     public Exp convint (Exp exp1,String enlaceFuente){
         return new ConvInt(exp1, enlaceFuente);
     }
-     public Exp ConvInt (Exp exp1){
+     public Exp convint (Exp exp1){
         return new ConvInt(exp1);
     }
      
-     public Exp ConvReal (Exp exp1, String enlaceFuente){
+     public Exp convreal (Exp exp1, String enlaceFuente){
         return new ConvReal(exp1, enlaceFuente);
     }
-     public Exp ConvReal (Exp exp1){
+     public Exp convreal (Exp exp1){
         return new ConvReal(exp1);
     }
      
-     public Exp ConvChar (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp convchar (Exp exp1, Exp exp2, String enlaceFuente){
         return new ConvChar(exp1, enlaceFuente);
     }
-     public Exp ConvChar (Exp exp1){
+     public Exp convchar (Exp exp1){
         return new ConvChar(exp1);
     }
      
-     public Exp ConvBool(Exp exp1, String enlaceFuente){
+     public Exp convbool(Exp exp1, String enlaceFuente){
         return new ConvBool(exp1, enlaceFuente);
     }
-     public Exp ConvBool (Exp exp1){
+     public Exp convbool (Exp exp1){
         return new ConvBool(exp1);
     }
      
-     public Exp ConvString (Exp exp1, String enlaceFuente){
+     public Exp convstring (Exp exp1, String enlaceFuente){
         return new ConvString(exp1,  enlaceFuente);
     }
-     public Exp ConvString (Exp exp1){
+     public Exp convstring (Exp exp1){
         return new ConvString(exp1);
     }
      
@@ -1119,58 +1119,58 @@ public abstract class Programa {
         return new And(exp1, exp2);
     }
      
-     public Exp Or (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp or (Exp exp1, Exp exp2, String enlaceFuente){
         return new Or(exp1, exp2, enlaceFuente);
     }
-     public Exp Or (Exp exp1, Exp exp2){
+     public Exp or (Exp exp1, Exp exp2){
         return new Or(exp1, exp2);
     }
      
-     public Exp Not (Exp exp1, String enlaceFuente){
+     public Exp not (Exp exp1, String enlaceFuente){
         return new Not(exp1, enlaceFuente);
     }
-     public Exp Not (Exp exp1){
+     public Exp not (Exp exp1){
         return new Not(exp1);
     }
      
-     public Exp Mayor (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp mayor (Exp exp1, Exp exp2, String enlaceFuente){
         return new Mayor(exp1, exp2, enlaceFuente);
     }
-     public Exp Mayor (Exp exp1, Exp exp2){
+     public Exp mayor (Exp exp1, Exp exp2){
         return new Mayor(exp1, exp2);
     }
      
-     public Exp Menor (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp menor (Exp exp1, Exp exp2, String enlaceFuente){
         return new Menor(exp1, exp2, enlaceFuente);
     }
-     public Exp Menor (Exp exp1, Exp exp2){
+     public Exp menor (Exp exp1, Exp exp2){
         return new Menor(exp1, exp2);
     }
      
-     public Exp MayorIgual (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp mayorigual (Exp exp1, Exp exp2, String enlaceFuente){
         return new MayorIgual(exp1, exp2, enlaceFuente);
     }
-     public Exp MayorIgual (Exp exp1, Exp exp2){
+     public Exp mayorigual (Exp exp1, Exp exp2){
         return new MayorIgual(exp1, exp2);
     }
      
-     public Exp MenorIgual (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp menorigual (Exp exp1, Exp exp2, String enlaceFuente){
         return new MenorIgual(exp1, exp2, enlaceFuente);
     }
-     public Exp MenorIgual (Exp exp1, Exp exp2){
+     public Exp menorigual (Exp exp1, Exp exp2){
         return new MenorIgual(exp1, exp2);
     }
-     public Exp Igual (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp igual (Exp exp1, Exp exp2, String enlaceFuente){
         return new Igual(exp1, exp2, enlaceFuente);
     }
-     public Exp Igual (Exp exp1, Exp exp2){
+     public Exp igual (Exp exp1, Exp exp2){
         return new Igual(exp1, exp2);
     }
      
-     public Exp Distinto (Exp exp1, Exp exp2, String enlaceFuente){
+     public Exp distinto (Exp exp1, Exp exp2, String enlaceFuente){
         return new Distinto(exp1, exp2, enlaceFuente);
     }
-     public Exp Distinto (Exp exp1, Exp exp2){
+     public Exp distinto (Exp exp1, Exp exp2){
         return new Distinto(exp1, exp2);
     }
    public Inst iwhile(Exp exp, Inst cuerpo) {
