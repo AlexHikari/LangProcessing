@@ -1,5 +1,7 @@
 package programa;
 
+import java.util.ArrayList;
+import java.util.Map;
 import procesamientos.Procesamiento;
 
 public abstract class Programa {
@@ -391,6 +393,32 @@ public abstract class Programa {
            this(exp,cuerpo0,cuerpo1,null);
        }
        public IIfThenElse(Exp exp, Inst cuerpo0, Inst cuerpo1, String enlaceFuente){
+            this.exp = exp;
+            this.cuerpo0 = cuerpo0;
+            this.cuerpo1 = cuerpo1;
+            this.enlaceFuente = enlaceFuente;
+       }
+       public Exp exp() {return exp;}
+       public Inst cuerpo0() {return cuerpo0;}
+       public Inst cuerpo1() {return cuerpo1;}
+       public int dirInstElse(){return dirInstElse;}
+       public void ponDireccionElse(int dir){ dirInstElse = dir;}
+       public String enlaceFuente() {return enlaceFuente;}
+      
+       public void procesaCon(Procesamiento p) {
+         p.procesa(this);
+       }
+       
+       }
+    public class SwitchCase extends Inst {
+       
+       private Map<Exp,Inst> cases;
+       private String enlaceFuente;
+       private int dirInstElse;
+       public SwitchCase(Exp exp, Inst cuerpo0, Inst cuerpo1) {
+           this(exp,cuerpo0,cuerpo1,null);
+       }
+       public SwitchCase(Exp exp, , String enlaceFuente){
             this.exp = exp;
             this.cuerpo0 = cuerpo0;
             this.cuerpo1 = cuerpo1;

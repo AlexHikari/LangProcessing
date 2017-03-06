@@ -360,9 +360,9 @@ public class Impresion extends Procesamiento {
       b.cuerpo().procesaCon(this);
       identacion -=3;
       identa();
+      System.out.print("} ");
       System.out.print("while ");
       b.exp().procesaCon(this);
-      System.out.print("}");
       imprimeAtributos(b);
       System.out.println();
    }  
