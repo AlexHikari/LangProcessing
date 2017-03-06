@@ -40,6 +40,7 @@ import programa.Programa.Distinto;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IWhile;
+import programa.Programa.IIfThen;
 
 
 public class Impresion extends Procesamiento {
@@ -248,7 +249,7 @@ public class Impresion extends Procesamiento {
    public void procesa(MenorIgual exp) {
      System.out.print('('); 
      exp.opnd1().procesaCon(this);
-     System.out.print("MenorIgual");
+     System.out.print("<=");
      imprimeAtributos(exp);
      exp.opnd2().procesaCon(this);
      System.out.print(')'); 
@@ -330,7 +331,7 @@ public class Impresion extends Procesamiento {
    
      public void procesa(IEscribe i){
      System.out.print("(");
-     System.out.print("escribe expresion");
+     System.out.print("escribe expresion ");
      i.exp().procesaCon(this);
      imprimeAtributos(i.exp());
      System.out.print(")");
@@ -348,5 +349,18 @@ public class Impresion extends Procesamiento {
       System.out.print("}");
       imprimeAtributos(b);
       System.out.println();
-   }   
+   }  
+     public void procesa(IIfThen b) {
+      identa(); 
+      System.out.print("if ");
+      b.exp().procesaCon(this);
+      System.out.println(" then {");
+      identacion += 3;
+      b.cuerpo().procesaCon(this);
+      identacion -=3;
+      identa();
+      System.out.print("}");
+      imprimeAtributos(b);
+      System.out.println();
+   }  
 }   

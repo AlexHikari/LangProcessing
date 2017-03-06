@@ -336,7 +336,30 @@ public abstract class Programa {
        public void procesaCon(Procesamiento p) {
          p.procesa(this);
        }
-   }   
+   }
+       
+       public class IIfThen extends Inst {
+       
+       private Exp exp;
+       private Inst cuerpo;
+       private String enlaceFuente;
+       public IIfThen(Exp exp, Inst cuerpo) {
+           this(exp,cuerpo,null);
+       }
+       public IIfThen(Exp exp, Inst cuerpo, String enlaceFuente){
+            this.exp = exp;
+            this.cuerpo = cuerpo;
+            this.enlaceFuente = enlaceFuente;
+       }
+       public Exp exp() {return exp;}
+       public Inst cuerpo() {return cuerpo;}
+       public String enlaceFuente() {return enlaceFuente;}
+      
+       public void procesaCon(Procesamiento p) {
+         p.procesa(this);
+       }
+       
+       }
    
 
     public class IBloque extends Inst {
@@ -1129,7 +1152,13 @@ public abstract class Programa {
    public Inst iwhile(Exp exp, Inst cuerpo, String enlaceFuente) {
       return new IWhile(exp,cuerpo,enlaceFuente);  
    }
-    
+   public Inst iifthen(Exp exp, Inst cuerpo) {
+      return new IIfThen(exp,cuerpo);  
+   }
+   public Inst iifthen(Exp exp, Inst cuerpo, String enlaceFuente) {
+      return new IIfThen(exp,cuerpo,enlaceFuente);  
+   }
+   
     public Tipo tipoInt() {
         return TENT;
     }

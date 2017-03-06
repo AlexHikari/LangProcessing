@@ -35,6 +35,7 @@ import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
+import programa.Programa.IIfThen;
 import programa.Programa.IWhile;
 
 public class Vinculacion extends Procesamiento {
@@ -190,5 +191,9 @@ public class Vinculacion extends Procesamiento {
    public void procesa(IWhile i) {
      i.exp().procesaCon(this);
      i.cuerpo().procesaCon(this);
-   }    
+   }
+   public void procesa(IIfThen i) {
+     i.exp().procesaCon(this);
+     i.cuerpo().procesaCon(this);
+   } 
 }

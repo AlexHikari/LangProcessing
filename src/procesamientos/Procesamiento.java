@@ -41,6 +41,7 @@ import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
+import programa.Programa.IIfThen;
 import programa.Programa.IWhile;
 
 
@@ -87,4 +88,5 @@ public class Procesamiento {
    public void procesa(ILee i) {}
    public void procesa(IEscribe i) {}
    public void procesa(IWhile i) {}
+   public void procesa(IIfThen i) {}
 }
