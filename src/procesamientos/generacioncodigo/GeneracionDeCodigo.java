@@ -69,7 +69,7 @@ public class GeneracionDeCodigo extends Procesamiento {
        //si son iguales pueden ser int real o string
        if(exp.opnd1().tipo().equals(exp.opnd2().tipo())){
            if(exp.opnd1().tipo().equals(programa.tipoInt())){ maquina.addInstruccion(maquina.sumInts());}
-           if(exp.opnd1().tipo().equals(programa.tipoReal())){ maquina.addInstruccion(maquina.sumReals());}
+           else if(exp.opnd1().tipo().equals(programa.tipoReal())){ maquina.addInstruccion(maquina.sumReals());}
            else {maquina.addInstruccion(maquina.concat());}
        }
        else
