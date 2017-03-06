@@ -1,6 +1,8 @@
 package procesamientos.comprobaciontipos;
 
 import errores.Errores;
+import java.util.Iterator;
+import java.util.Map;
 import procesamientos.Procesamiento;
 import programa.Programa;
 import programa.Programa.CteInt;
@@ -34,12 +36,15 @@ import programa.Programa.Igual;
 import programa.Programa.MayorIgual;
 import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
+import programa.Programa.Exp;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
+import programa.Programa.ISwitchCase;
+import programa.Programa.Inst;
 
 
 public class ComprobacionTipos extends Procesamiento { 
@@ -544,5 +549,24 @@ public void procesa(ConvChar exp) {
        }
       
       
+      }
+      public void procesa(ISwitchCase i) {
+      
+        for (Map.Entry<Exp, Inst> pair : i.cases().entrySet()) {
+                   pair.getKey().procesaCon(this);
+                   pair.getValue().procesaCon(this);
+                   if(! pair.getKey().tipo().equals(programa.tipoError()) &&
+                      ! pair.getKey().tipo().equals(programa.tipoInt())){
+                       errores.msg(i.enlaceFuente()+":"+ERROR_COND);
+                       break;
+                   }
+                   else if(!pair.getValue().tipo().equals(programa.tipoOk())){
+                       i.ponTipo(programa.tipoError());
+                       break;
+                   }
+                   else{
+                       i.ponTipo(programa.tipoOk());
+                   }
+        }
       }
 }

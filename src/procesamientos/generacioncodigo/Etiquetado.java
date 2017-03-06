@@ -1,5 +1,6 @@
 package procesamientos.generacioncodigo;
 
+import java.util.Map;
 import programa.Programa;
 import procesamientos.Procesamiento;
 import programa.Programa.CteInt;
@@ -28,6 +29,7 @@ import programa.Programa.Menor;
 import programa.Programa.MayorIgual;
 import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
+import programa.Programa.Exp;
 import programa.Programa.Prog;
 import programa.Programa.IBloque;
 import programa.Programa.IAsig;
@@ -38,6 +40,8 @@ import programa.Programa.IIfThen;
 import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
 import programa.Programa.IIfThenElse;
+import programa.Programa.ISwitchCase;
+import programa.Programa.Inst;
 
 
 public class Etiquetado extends Procesamiento {
@@ -272,6 +276,21 @@ public class Etiquetado extends Procesamiento {
 
       i.ponDirInstruccionSiguiente(etq);
    }
+   public void procesa(ISwitchCase i){
+          int inst = 0;
+          i.ponDirPrimeraInstruccion(etq);
+          for (Map.Entry<Exp,Inst> pair : i.cases().entrySet()) {
+          pair.getKey().procesaCon(this);
+          //ir_f(...)
+          etq++;
+          i.ponDirSig(inst);
+          pair.getValue().procesaCon(this);
+          etq++;
+        }
+   
+   }
+   
+   
    public void procesa(ILee i) {
        i.ponDirPrimeraInstruccion(etq);
        i.declaracion().procesaCon(this);

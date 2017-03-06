@@ -410,25 +410,21 @@ public abstract class Programa {
        }
        
        }
-    public class SwitchCase extends Inst {
+    public class ISwitchCase extends Inst {
        
        private Map<Exp,Inst> cases;
        private String enlaceFuente;
-       private int dirInstElse;
-       public SwitchCase(Exp exp, Inst cuerpo0, Inst cuerpo1) {
-           this(exp,cuerpo0,cuerpo1,null);
+       private ArrayList<Integer> dir;
+       public ISwitchCase(Map<Exp,Inst> cases) {
+           this(cases,null);
        }
-       public SwitchCase(Exp exp, , String enlaceFuente){
-            this.exp = exp;
-            this.cuerpo0 = cuerpo0;
-            this.cuerpo1 = cuerpo1;
+       public ISwitchCase(Map<Exp,Inst> cases , String enlaceFuente){
+            this.cases = cases;
             this.enlaceFuente = enlaceFuente;
        }
-       public Exp exp() {return exp;}
-       public Inst cuerpo0() {return cuerpo0;}
-       public Inst cuerpo1() {return cuerpo1;}
-       public int dirInstElse(){return dirInstElse;}
-       public void ponDireccionElse(int dir){ dirInstElse = dir;}
+       public Map<Exp,Inst> cases(){return cases;}
+       public void ponDirSig(int dir){ this.dir.add(dir);}
+       public int dirSig(int dir){ return this.dir.indexOf(dir);}
        public String enlaceFuente() {return enlaceFuente;}
       
        public void procesaCon(Procesamiento p) {
@@ -1244,6 +1240,12 @@ public abstract class Programa {
    }
    public Inst iifthenelse(Exp exp, Inst cuerpoif,Inst cuerpoelse, String enlaceFuente) {
       return new IIfThenElse(exp,cuerpoif,cuerpoelse,enlaceFuente);  
+   }
+   public Inst iswitchcase(Map<Exp,Inst> cases) {
+      return new ISwitchCase(cases);  
+   }
+   public Inst iswitchcase(Map<Exp,Inst> cases, String enlaceFuente) {
+      return new ISwitchCase(cases,enlaceFuente);  
    }
    
     public Tipo tipoInt() {

@@ -33,12 +33,15 @@ import programa.Programa.Igual;
 import programa.Programa.MayorIgual;
 import programa.Programa.MenorIgual;
 import programa.Programa.Distinto;
+import programa.Programa.Exp;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
+import programa.Programa.ISwitchCase;
+import programa.Programa.Inst;
 
 public class Vinculacion extends Procesamiento {
    private final static String ERROR_ID_DUPLICADO="Identificador ya declarado";
@@ -206,5 +209,11 @@ public class Vinculacion extends Procesamiento {
      i.exp().procesaCon(this);
      i.cuerpo0().procesaCon(this);
      i.cuerpo1().procesaCon(this);
-   } 
+   }
+   public void procesa(ISwitchCase i) {
+       for (Map.Entry<Exp, Inst> pair : i.cases().entrySet()) {
+           pair.getKey().procesaCon(this);
+           pair.getValue().procesaCon(this);
+        }
+   }
 }
