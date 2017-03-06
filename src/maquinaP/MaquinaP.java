@@ -131,66 +131,18 @@ public class MaquinaP {
    }
    private IConvIntToReal ICONVINTTOREAL;
    private class IConvIntToReal implements Instruccion {
-       private int posicion;   
-       public IConvIntToReal (){
-           this.posicion = -1;
-       }
-       public void setPos(int pos){
-            this.posicion = pos;
-       }
+
        public void ejecuta() {
+           Valor opnd1 = pilaEvaluacion.pop();
            Valor resul;
-           switch(this.posicion){
-           
-               case -1:{
-                   Valor opnd1 = pilaEvaluacion.pop();
-                   if (opnd1 == UNKNOWN)
-                       resul = UNKNOWN;
-                   else
-                       resul = new ValorReal(opnd1.valorInt());
-                   pilaEvaluacion.push(resul);
-       
-               }break;
-               case 0:{
-                   Valor opnd2 = pilaEvaluacion.pop();
-                   Valor opnd1 = pilaEvaluacion.pop();
-                   if (opnd1 == UNKNOWN)
-                        resul = UNKNOWN;
-                   else
-                        resul = new ValorReal(opnd1.valorInt());
-                   pilaEvaluacion.push(resul);
-                   pilaEvaluacion.push(opnd2);
-                  
-               }break;
-               case 1:{
-                   Valor opnd1 = pilaEvaluacion.pop();
-                   if (opnd1 == UNKNOWN)
-                        resul = UNKNOWN;
-                   else
-                        resul = new ValorReal(opnd1.valorInt());
-                   pilaEvaluacion.push(resul);
-            
-               }break;
-               default:break;
-           }
-           this.posicion = -1;
+           if(opnd1 == UNKNOWN)
+               resul = UNKNOWN;
+           else
+               resul = new ValorReal(opnd1.valorReal());           
            pc++;
        }
        public String toString() {
-       switch(this.posicion){
-           
-               case -1:{
-                   return "Conversion explicita";
-               }
-               case 0:{
-                   return "Conversion implicita primer argumento";
-               }
-               case 1:{
-                   return "Conversion implicita segundo argumento";
-               }
-               default:break;
-           }
-       return "";
+        return "Convierte real a int";
        }
    }
    private IResInts IRESINTS;
@@ -1216,7 +1168,7 @@ public class MaquinaP {
          pilaEvaluacion.push(resul);
          pc++;
       } 
-      public String toString() {return "escribe string";};
+      public String toString() {return "escribe int";};
 
    }
    private IEscribeReal IESCRIBEREAL;
@@ -1364,10 +1316,7 @@ public class MaquinaP {
    public Instruccion sumReals() {return ISUMREALS;}
    public Instruccion concat() {return ICONCAT;}
    public Instruccion convIntToReal(){return ICONVINTTOREAL;}
-   public Instruccion convIntToReal(int pos){
-       ICONVINTTOREAL.setPos(pos);
-       return ICONVINTTOREAL;
-   }
+   public Instruccion convIntToReal(int pos){return ICONVINTTOREAL;}
    public Instruccion resInts(){return IRESINTS;}
    public Instruccion resReals(){return IRESREALS;}
    public Instruccion mulInts(){return IMULINTS;}

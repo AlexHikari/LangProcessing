@@ -72,16 +72,9 @@ public class GeneracionDeCodigo extends Procesamiento {
            if(exp.opnd1().tipo().equals(programa.tipoReal())){ maquina.addInstruccion(maquina.sumReals());}
            else {maquina.addInstruccion(maquina.concat());}
        }
-       //sino solamente pueden ser de tipo in real o real int
-       else{
-           if(exp.opnd1().tipo().equals(programa.tipoInt()))
-               maquina.addInstruccion(maquina.convIntToReal(0));
-           else
-               maquina.addInstruccion(maquina.convIntToReal(1));
-           
+       else
            maquina.addInstruccion(maquina.sumReals());
-           
-       }      
+                 
    }
       public void procesa(Resta exp) {
        exp.opnd1().procesaCon(this);
@@ -92,15 +85,8 @@ public class GeneracionDeCodigo extends Procesamiento {
            else{ maquina.addInstruccion(maquina.resReals());}
        }
        //sino solamente pueden ser de tipo int real o real int
-       else{
-           if(exp.opnd1().tipo().equals(programa.tipoInt()))
-               maquina.addInstruccion(maquina.convIntToReal(0));
-           else
-               maquina.addInstruccion(maquina.convIntToReal(1));
-           
-           maquina.addInstruccion(maquina.resReals());
-           
-       }      
+       else
+           maquina.addInstruccion(maquina.resReals());          
    }
       public void procesa(Multi exp) {
        exp.opnd1().procesaCon(this);
@@ -111,14 +97,8 @@ public class GeneracionDeCodigo extends Procesamiento {
            else{ maquina.addInstruccion(maquina.mulReals());}
        }
        //sino solamente pueden ser de tipo int real o real int
-       else{
-           if(exp.opnd1().tipo().equals(programa.tipoInt()))
-               maquina.addInstruccion(maquina.convIntToReal(0));
-           else
-               maquina.addInstruccion(maquina.convIntToReal(1));
-           
-           maquina.addInstruccion(maquina.mulReals());    
-       }      
+       else
+           maquina.addInstruccion(maquina.mulReals());        
    }
     public void procesa(Div exp) {
        exp.opnd1().procesaCon(this);
@@ -129,14 +109,8 @@ public class GeneracionDeCodigo extends Procesamiento {
            else{ maquina.addInstruccion(maquina.divReals());}
        }
        //sino solamente pueden ser de tipo int real o real int
-       else{
-            if(exp.opnd1().tipo().equals(programa.tipoInt()))
-               maquina.addInstruccion(maquina.convIntToReal(0));
-            else
-               maquina.addInstruccion(maquina.convIntToReal(1));
-            
-            maquina.addInstruccion(maquina.divReals());    
-       }      
+       else
+            maquina.addInstruccion(maquina.divReals());         
    }
     public void procesa(RestoEntero exp){
        exp.opnd1().procesaCon(this);
@@ -313,6 +287,7 @@ public class GeneracionDeCodigo extends Procesamiento {
        maquina.addInstruccion(maquina.desapilaDir(i.declaracion().dir()));
    }
    public void procesa(IEscribe i){
+       i.exp().procesaCon(this);
        if(i.exp().tipo().equals(programa.tipoInt()))
            maquina.addInstruccion(maquina.EscribeInt());
        else if (i.exp().tipo().equals(programa.tipoReal()))

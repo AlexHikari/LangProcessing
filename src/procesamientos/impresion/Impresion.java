@@ -193,12 +193,9 @@ public class Impresion extends Procesamiento {
    } 
    
    public void procesa(CambiaSigno exp) {
-     System.out.print('('); 
-     System.out.print('('); 
-     System.out.print("-1"); 
-     System.out.print(')'); 
+     System.out.print('(');  
      exp.opnd1().procesaCon(this);     
-     imprimeAtributos(exp);    
+     imprimeAtributos(exp);   
      System.out.print(')'); 
    } 
    
@@ -320,5 +317,21 @@ public class Impresion extends Procesamiento {
      exp.opnd1().procesaCon(this);     
      imprimeAtributos(exp);
      System.out.print(')'); 
-   } 
+   }
+   
+   public void procesa(ILee i){
+     System.out.print("(");
+     System.out.print("lee valor");
+     i.declaracion().procesaCon(this);
+     imprimeAtributos(i);
+     System.out.print(")");
+   }
+   
+     public void procesa(IEscribe i){
+     System.out.print("(");
+     System.out.print("escribe expresion");
+     i.exp().procesaCon(this);
+     imprimeAtributos(i.exp());
+     System.out.print(")");
+   }
 }   

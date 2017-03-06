@@ -34,7 +34,7 @@ public class Prueba extends Programa {
                               }, 
                      ibloque(
                           new Inst[]{
-                                   
+                                   iescribe(suma(cteint(0), cteint(2)))
                                    }));  
    }
    public Prog raiz() {
