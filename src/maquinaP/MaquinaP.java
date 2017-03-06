@@ -1322,7 +1322,7 @@ public class MaquinaP {
       } 
       public String toString() {return "ira("+dir+")";};
    }
-
+      
       private class IIrF implements Instruccion {
       private int dir;
       public IIrF(int dir) {
@@ -1337,6 +1337,21 @@ public class MaquinaP {
          }
       } 
       public String toString() {return "irf("+dir+")";};
+   }
+   private class INIrF implements Instruccion {
+      private int dir;
+      public INIrF(int dir) {
+        this.dir = dir;  
+      }
+      public void ejecuta() {
+         if(pilaEvaluacion.pop().valorBool()) { 
+            pc=dir;
+         }   
+         else {
+            pc++; 
+         }
+      } 
+      public String toString() {return "¬irf("+dir+")";};
    }
    
    public Instruccion sumInts() {return ISUMINTS;}
@@ -1419,6 +1434,7 @@ public class MaquinaP {
    public Instruccion EscribeString(){return IESCRIBESTRING;}
    public Instruccion irA(int dir) {return new IIrA(dir);}
    public Instruccion irF(int dir) {return new IIrF(dir);}
+   public Instruccion INIrF(int dir) {return new INIrF(dir);}
 
    public void addInstruccion(Instruccion i) {
       codigoP.add(i); 

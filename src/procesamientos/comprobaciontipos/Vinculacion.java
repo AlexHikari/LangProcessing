@@ -38,6 +38,7 @@ import programa.Programa.IEscribe;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 import programa.Programa.IWhile;
+import programa.Programa.IDoWhile;
 
 public class Vinculacion extends Procesamiento {
    private final static String ERROR_ID_DUPLICADO="Identificador ya declarado";
@@ -190,6 +191,10 @@ public class Vinculacion extends Procesamiento {
    }
    
    public void procesa(IWhile i) {
+     i.exp().procesaCon(this);
+     i.cuerpo().procesaCon(this);
+   }
+   public void procesa(IDoWhile i) {
      i.exp().procesaCon(this);
      i.cuerpo().procesaCon(this);
    }

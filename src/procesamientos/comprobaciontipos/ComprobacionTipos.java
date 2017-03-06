@@ -37,6 +37,7 @@ import programa.Programa.Distinto;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IWhile;
+import programa.Programa.IDoWhile;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 
@@ -478,6 +479,22 @@ public void procesa(ConvChar exp) {
    }
    
       public void procesa(IWhile i) {
+       i.exp().procesaCon(this);
+       if (! i.exp().tipo().equals(programa.tipoError()) &&
+           ! i.exp().tipo().equals(programa.tipoBool())) {
+           errores.msg(i.enlaceFuente()+":"+ERROR_COND);
+       
+       }   
+       i.cuerpo().procesaCon(this);
+       if(i.exp().tipo().equals(programa.tipoBool()) &&
+          i.cuerpo().tipo().equals(programa.tipoOk())) {
+          i.ponTipo(programa.tipoOk()); 
+       }
+       else {
+          i.ponTipo(programa.tipoError()); 
+       }
+      }
+      public void procesa(IDoWhile i) {
        i.exp().procesaCon(this);
        if (! i.exp().tipo().equals(programa.tipoError()) &&
            ! i.exp().tipo().equals(programa.tipoBool())) {

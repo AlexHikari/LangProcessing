@@ -36,6 +36,7 @@ import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IIfThen;
 import programa.Programa.IWhile;
+import programa.Programa.IDoWhile;
 import programa.Programa.IIfThenElse;
 
 
@@ -238,6 +239,16 @@ public class Etiquetado extends Procesamiento {
       // ir_a(...)
       etq++;
       i.ponDirInstruccionSiguiente(etq);
+   }
+   public void procesa(IDoWhile i) {
+      i.ponDirPrimeraInstruccion(etq); 
+      i.exp().procesaCon(this);
+      // ir_f(...)
+      etq++;
+      i.cuerpo().procesaCon(this);
+      // ir_a(...)
+      etq++;
+      i.ponDirInstruccionSiguiente(etq); // no hace falta
    }
    public void procesa(IIfThen i) {
       i.ponDirPrimeraInstruccion(etq);

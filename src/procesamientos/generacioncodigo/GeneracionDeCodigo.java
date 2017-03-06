@@ -38,6 +38,7 @@ import programa.Programa.IEscribe;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 import programa.Programa.IWhile;
+import programa.Programa.IDoWhile;
 
 
 public class GeneracionDeCodigo extends Procesamiento {
@@ -308,6 +309,11 @@ public class GeneracionDeCodigo extends Procesamiento {
       maquina.addInstruccion(maquina.irF(i.dirInstruccionSiguiente()));
       i.cuerpo().procesaCon(this);
       maquina.addInstruccion(maquina.irA(i.dirPrimeraInstruccion()));      
+   }
+   public void procesa(IDoWhile i) {
+      i.cuerpo().procesaCon(this);
+      i.exp().procesaCon(this);
+      maquina.addInstruccion(maquina.INIrF(i.dirPrimeraInstruccion()));
    }
    public void procesa(IIfThen i){
        i.exp().procesaCon(this);

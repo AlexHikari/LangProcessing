@@ -317,7 +317,7 @@ public abstract class Programa {
     
     }
     
-       public class IWhile extends Inst {
+    public class IWhile extends Inst {
        private Exp exp;
        private Inst cuerpo;
        private String enlaceFuente;
@@ -325,6 +325,26 @@ public abstract class Programa {
           this(exp,cuerpo,null); 
        }
        public IWhile(Exp exp, Inst cuerpo, String enlaceFuente) {
+          this.exp = exp;
+          this.cuerpo = cuerpo;
+          this.enlaceFuente = enlaceFuente;
+       }
+       public Exp exp() {return exp;}
+       public Inst cuerpo() {return cuerpo;}
+       public String enlaceFuente() {return enlaceFuente;}
+      
+       public void procesaCon(Procesamiento p) {
+         p.procesa(this);
+       }
+   }
+    public class IDoWhile extends Inst {
+       private Exp exp;
+       private Inst cuerpo;
+       private String enlaceFuente;
+       public IDoWhile(Exp exp, Inst cuerpo) {
+          this(exp,cuerpo,null); 
+       }
+       public IDoWhile(Exp exp, Inst cuerpo, String enlaceFuente) {
           this.exp = exp;
           this.cuerpo = cuerpo;
           this.enlaceFuente = enlaceFuente;
@@ -1178,6 +1198,12 @@ public abstract class Programa {
    }
    public Inst iwhile(Exp exp, Inst cuerpo, String enlaceFuente) {
       return new IWhile(exp,cuerpo,enlaceFuente);  
+   }
+   public Inst idowhile(Exp exp, Inst cuerpo) {
+      return new IDoWhile(exp,cuerpo);  
+   }
+   public Inst idowhile(Exp exp, Inst cuerpo, String enlaceFuente) {
+      return new IDoWhile(exp,cuerpo,enlaceFuente);  
    }
    public Inst iifthen(Exp exp, Inst cuerpo) {
       return new IIfThen(exp,cuerpo);  

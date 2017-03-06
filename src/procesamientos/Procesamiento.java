@@ -45,6 +45,7 @@ import programa.Programa.IEscribe;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 import programa.Programa.IWhile;
+import programa.Programa.IDoWhile;
 
 
 public class Procesamiento {
@@ -92,4 +93,5 @@ public class Procesamiento {
    public void procesa(IWhile i) {}
    public void procesa(IIfThen i) {}
    public void procesa(IIfThenElse i) {}
+   public void procesa(IDoWhile i) {}
 }

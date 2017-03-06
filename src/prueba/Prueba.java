@@ -39,6 +39,7 @@ public class Prueba extends Programa {
                                    iasig("y",cteint(15),"linea 2"),
                                    iwhile(menor(var("x"),var("y"),"linea 3"), iasig("x",suma(var("x"),cteint(1)),"linea 4"),"linea 3"),
                                    iifthenelse(menor(var("x"),cteint(10),"linea 5"),iasig("x",suma(var("x"), cteint(1)),"linea 5"),iasig("z",ctebool(true),"linea 6"),"linea 4"),
+                                   idowhile(distinto(var("y"),ctereal(0),"linea 9"),iasig("y",resta(var("y"), cteint(1),"linea 7")),"linea 7")
                                    }));
    }
    public Prog raiz() {

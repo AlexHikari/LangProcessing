@@ -40,6 +40,7 @@ import programa.Programa.Distinto;
 import programa.Programa.ILee;
 import programa.Programa.IEscribe;
 import programa.Programa.IWhile;
+import programa.Programa.IDoWhile;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 
@@ -351,6 +352,21 @@ public class Impresion extends Procesamiento {
       imprimeAtributos(b);
       System.out.println();
    }  
+
+     public void procesa(IDoWhile b) {
+      identa(); 
+      System.out.println("do {");
+      identacion += 3;
+      b.cuerpo().procesaCon(this);
+      identacion -=3;
+      identa();
+      System.out.print("while ");
+      b.exp().procesaCon(this);
+      System.out.print("}");
+      imprimeAtributos(b);
+      System.out.println();
+   }  
+     
      public void procesa(IIfThen b) {
       identa(); 
       System.out.print("if ");
