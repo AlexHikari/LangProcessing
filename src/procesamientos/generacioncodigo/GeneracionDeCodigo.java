@@ -339,6 +339,6 @@ public class GeneracionDeCodigo extends Procesamiento {
            maquina.addInstruccion(maquina.irF(i.dirInstruccionSiguiente()));
            pair.getValue().procesaCon(this);
        }
-    }
+     }
 }
 
