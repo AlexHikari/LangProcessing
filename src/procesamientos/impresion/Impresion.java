@@ -43,6 +43,8 @@ import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
+import programa.Programa.ISwitchCase;
+import java.util.Map;
 
 
 public class Impresion extends Procesamiento {
@@ -399,4 +401,18 @@ public class Impresion extends Procesamiento {
       imprimeAtributos(b);
       System.out.println();
    } 
+   //Revisar !!!!!!!!!!!!!!!!!!!!!!!
+   public void procesa(ISwitchCase b){
+   identa();
+   System.out.print("Switch");
+   //**********************
+    for (Map.Entry<Exp,Inst> pair : b.cases().entrySet()) {
+           System.out.print("Case");
+           pair.getKey().procesaCon(this);
+           System.out.print(":");
+           pair.getValue().procesaCon(this);
+           System.out.println();
+    }
+   }
+   
 }   

@@ -39,6 +39,10 @@ import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
+import programa.Programa.ISwitchCase;
+import programa.Programa.Exp;
+import programa.Programa.Inst;
+import java.util.Map;
 
 
 public class GeneracionDeCodigo extends Procesamiento {
@@ -327,4 +331,14 @@ public class GeneracionDeCodigo extends Procesamiento {
        maquina.addInstruccion(maquina.irA(i.dirInstruccionSiguiente()));
        i.cuerpo1().procesaCon(this);
    }
+   
+   //Revisar!!!!!!!!!!!!!!!!!!!!!1
+   public void procesa(ISwitchCase i){
+       for (Map.Entry<Exp,Inst> pair : i.cases().entrySet()) {
+           pair.getKey().procesaCon(this);
+           maquina.addInstruccion(maquina.irF(i.dirInstruccionSiguiente()));
+           pair.getValue().procesaCon(this);
+       }
+    }
 }
+
