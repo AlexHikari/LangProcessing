@@ -411,28 +411,60 @@ public abstract class Programa {
        
        }
     public class ISwitchCase extends Inst {
+    
+        private Exp exp;
+        private Casos casos;
+    
+    }
        
-       private Map<Exp,Inst> cases;
+     /*  private Var var;
+       private ArrayList<Integer> cases;
+       private ArrayList<Inst> cuerpos;
        private String enlaceFuente;
        private ArrayList<Integer> dir;
-       public ISwitchCase(Map<Exp,Inst> cases) {
-           this(cases,null);
+       public ISwitchCase(Var var, ArrayList<Integer> cases, ArrayList<Inst> cuerpos) {
+           this(var,cases,cuerpos,null);
        }
-       public ISwitchCase(Map<Exp,Inst> cases , String enlaceFuente){
+       public ISwitchCase(Var var, ArrayList<Integer> cases, ArrayList<Inst> cuerpos, String enlaceFuente){
+            this.var = var;
             this.cases = cases;
+            this.cuerpos = cuerpos;
             this.enlaceFuente = enlaceFuente;
        }
-       public Map<Exp,Inst> cases(){return cases;}
+       public Var var(){return var;}
+       public ArrayList<Integer> cases(){return cases;}
+       public Integer cases(int i){return this.cases.get(i);}
+       public ArrayList<Inst> cuerpos(){return cuerpos;}
+       public Inst cuerpos(int i){return this.cuerpos.get(i);}
        public void ponDirSig(int dir){ this.dir.add(dir);}
        public int dirSig(int dir){ return this.dir.indexOf(dir);}
-       public String enlaceFuente() {return enlaceFuente;}
-      
+       public String enlaceFuente() {return enlaceFuente;}      
        public void procesaCon(Procesamiento p) {
          p.procesa(this);
        }
        
-       }
+    }*/
 
+    public class Casos{
+    
+        private Tipo tipo;
+        private Exp caso;
+        private Inst cuerpo;
+        private String enlaceFuente;
+        private Int dirPrimeraInst;
+        private Int dirUltimaInst;
+        
+        public Tipo tipo(){return tipo;}
+        public Exp exp() {return exp;}
+        public Inst cuerpo(){return cuerpo;}
+        public String enlaceFuente() {return enlaceFuente;}
+        public void procesaCon(Procesamiento p) {
+          //p.procesa(this);
+        }
+        
+
+    }
+    
     public class IBloque extends Inst {
 
         private Inst[] is;
@@ -482,7 +514,11 @@ public abstract class Programa {
 
         public abstract void procesaCon(Procesamiento p);
     }
-
+/*
+    public class ExpCase extends Exp{
+        private 
+    }
+ */   
     public class Var extends Exp {
 
         private String var;
@@ -1241,11 +1277,11 @@ public abstract class Programa {
    public Inst iifthenelse(Exp exp, Inst cuerpoif,Inst cuerpoelse, String enlaceFuente) {
       return new IIfThenElse(exp,cuerpoif,cuerpoelse,enlaceFuente);  
    }
-   public Inst iswitchcase(Map<Exp,Inst> cases) {
-      return new ISwitchCase(cases);  
+   public Inst iswitchcase(Var var, ArrayList<Integer> cases, ArrayList<Inst> cuerpos) {
+      return new ISwitchCase(var, cases, cuerpos);  
    }
-   public Inst iswitchcase(Map<Exp,Inst> cases, String enlaceFuente) {
-      return new ISwitchCase(cases,enlaceFuente);  
+   public Inst iswitchcase(Var var, ArrayList<Integer> cases, ArrayList<Inst> cuerpos, String enlaceFuente) {
+      return new ISwitchCase(var, cases, cuerpos, enlaceFuente);  
    }
    
     public Tipo tipoInt() {
