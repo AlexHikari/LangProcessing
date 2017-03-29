@@ -47,6 +47,7 @@ import programa.Programa.IIfThenElse;
 import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
 import programa.Programa.ISwitchCase;
+import programa.Programa.Casos;
 
 
 public class Procesamiento {
@@ -96,4 +97,5 @@ public class Procesamiento {
    public void procesa(IIfThenElse i) {}
    public void procesa(IDoWhile i) {}
    public void procesa(ISwitchCase i) {}
+   public void procesa(Casos i){}
 }

@@ -413,7 +413,24 @@ public abstract class Programa {
     public class ISwitchCase extends Inst {
     
         private Exp exp;
-        private Casos casos;
+        private ArrayList<Casos> casos;
+        private String enlaceFuente;
+        
+        public ISwitchCase(Exp exp, ArrayList<Casos> casos){
+            this(exp,casos, null);
+        }
+        public ISwitchCase(Exp exp, ArrayList<Casos> casos, String enlaceFuente){
+            this.exp = exp;
+            this.casos = casos;
+            this.enlaceFuente = enlaceFuente; 
+        }
+        public Exp exp() {return exp;}
+        public ArrayList<Casos> casos() {return casos;}
+        public Casos casos(int i){return casos.get(i);}
+        public String enlaceFuente() {return enlaceFuente;}
+         public void procesaCon(Procesamiento p) {
+         p.procesa(this);
+       }
     
     }
        
@@ -448,7 +465,7 @@ public abstract class Programa {
     public class Casos{
     
         private Tipo tipo;
-        private Exp caso;
+        private Exp exp;
         private Inst cuerpo;
         private String enlaceFuente;
         private Int dirPrimeraInst;
@@ -458,8 +475,9 @@ public abstract class Programa {
         public Exp exp() {return exp;}
         public Inst cuerpo(){return cuerpo;}
         public String enlaceFuente() {return enlaceFuente;}
+        
         public void procesaCon(Procesamiento p) {
-          //p.procesa(this);
+          p.procesa(this);
         }
         
 
@@ -1277,11 +1295,8 @@ public abstract class Programa {
    public Inst iifthenelse(Exp exp, Inst cuerpoif,Inst cuerpoelse, String enlaceFuente) {
       return new IIfThenElse(exp,cuerpoif,cuerpoelse,enlaceFuente);  
    }
-   public Inst iswitchcase(Var var, ArrayList<Integer> cases, ArrayList<Inst> cuerpos) {
-      return new ISwitchCase(var, cases, cuerpos);  
-   }
-   public Inst iswitchcase(Var var, ArrayList<Integer> cases, ArrayList<Inst> cuerpos, String enlaceFuente) {
-      return new ISwitchCase(var, cases, cuerpos, enlaceFuente);  
+   public Inst iswitchcase(Exp exp, ArrayList<Casos> casos) {
+      return new ISwitchCase(exp, casos);  
    }
    
     public Tipo tipoInt() {

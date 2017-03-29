@@ -42,6 +42,7 @@ import programa.Programa.IDoWhile;
 import programa.Programa.ISwitchCase;
 import programa.Programa.Exp;
 import programa.Programa.Inst;
+import programa.Programa.Casos;
 import java.util.Map;
 
 

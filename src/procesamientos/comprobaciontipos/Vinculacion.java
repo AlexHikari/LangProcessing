@@ -3,6 +3,7 @@ package procesamientos.comprobaciontipos;
 import errores.Errores;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
 import procesamientos.Procesamiento;
 import programa.Programa.Dec;
 import programa.Programa.DecVar;
@@ -42,6 +43,7 @@ import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
 import programa.Programa.ISwitchCase;
 import programa.Programa.Inst;
+import programa.Programa.Casos;
 
 public class Vinculacion extends Procesamiento {
    private final static String ERROR_ID_DUPLICADO="Identificador ya declarado";
@@ -211,9 +213,13 @@ public class Vinculacion extends Procesamiento {
      i.cuerpo1().procesaCon(this);
    }
    public void procesa(ISwitchCase i) {
-       for (Map.Entry<Exp, Inst> pair : i.cases().entrySet()) {
-           pair.getKey().procesaCon(this);
-           pair.getValue().procesaCon(this);
-        }
+     i.exp().procesaCon(this);
+     Iterator<Casos> c = i.casos().iterator();
+    while( c.hasNext() ){
+        Casos caso = c.next();
+        caso.exp().procesaCon(this);
+        caso.cuerpo().procesaCon(this);
+        
+    }
    }
 }

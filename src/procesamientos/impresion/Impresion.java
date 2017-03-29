@@ -1,4 +1,5 @@
 package procesamientos.impresion;
+import java.util.Iterator;
 
 import procesamientos.Procesamiento;
 
@@ -44,6 +45,7 @@ import programa.Programa.IDoWhile;
 import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 import programa.Programa.ISwitchCase;
+import programa.Programa.Casos;
 import java.util.Map;
 
 
@@ -403,16 +405,21 @@ public class Impresion extends Procesamiento {
    } 
    //Revisar !!!!!!!!!!!!!!!!!!!!!!!
    public void procesa(ISwitchCase b){
-   identa();
-   System.out.print("Switch");
-   //**********************
-    for (Map.Entry<Exp,Inst> pair : b.cases().entrySet()) {
-           System.out.print("Case");
-           pair.getKey().procesaCon(this);
-           System.out.print(":");
-           pair.getValue().procesaCon(this);
-           System.out.println();
+    identa();
+    System.out.print("Switch");
+    b.exp().procesaCon(this);
+    System.out.println("{");
+    //**********************
+    Iterator<Casos> i = b.casos().iterator();
+    while( i.hasNext() ){
+        Casos caso = i.next();
+        System.out.print("Cases");
+        caso.exp().procesaCon(this);
+        System.out.print(":");
+        caso.cuerpo().procesaCon(this);
+        System.out.println();
     }
+    System.out.print("}");    
    }
    
 }   

@@ -45,6 +45,7 @@ import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 import programa.Programa.ISwitchCase;
 import programa.Programa.Inst;
+import programa.Programa.Casos;
 
 
 public class ComprobacionTipos extends Procesamiento { 
@@ -551,22 +552,23 @@ public void procesa(ConvChar exp) {
       
       }
       public void procesa(ISwitchCase i) {
-      
-        for (Map.Entry<Exp, Inst> pair : i.cases().entrySet()) {
-                   pair.getKey().procesaCon(this);
-                   pair.getValue().procesaCon(this);
-                   if(! pair.getKey().tipo().equals(programa.tipoError()) &&
-                      ! pair.getKey().tipo().equals(programa.tipoInt())){
-                       errores.msg(i.enlaceFuente()+":"+ERROR_COND);
-                       break;
-                   }
-                   else if(!pair.getValue().tipo().equals(programa.tipoOk())){
-                       i.ponTipo(programa.tipoError());
-                       break;
-                   }
-                   else{
-                       i.ponTipo(programa.tipoOk());
-                   }
+        i.exp().procesaCon(this);
+        if (! i.exp().tipo().equals(programa.tipoError()) &&
+          (!i.exp().tipo().equals(programa.tipoBool())) || 
+          (!i.exp().tipo().equals(programa.tipoChar())) || 
+          (!i.exp().tipo().equals(programa.tipoInt())) ||
+          (!i.exp().tipo().equals(programa.tipoReal()))) {
+           errores.msg(i.enlaceFuente()+":"+ERROR_COND);
+       } 
+        
+        Iterator<Casos> c = i.casos().iterator();
+        while( c.hasNext() ){
+            Casos caso = c.next();
+            caso.cuerpo().procesaCon(this);
+            if(!caso.exp().tipo().equals(i.exp().tipo())){
+                errores.msg(caso.enlaceFuente()+":"+ERROR_COND);
+            }                 
         }
+        i.ponTipo(programa.tipoOk());       
       }
 }
