@@ -48,6 +48,11 @@ import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
 import programa.Programa.ISwitchCase;
 import programa.Programa.Casos;
+import programa.Programa.IFree;
+import programa.Programa.INew;
+import programa.Programa.TRef;
+import programa.Programa.TPointer;
+import programa.Programa.DRef;
 
 
 public class Procesamiento {
@@ -98,4 +103,9 @@ public class Procesamiento {
    public void procesa(IDoWhile i) {}
    public void procesa(ISwitchCase i) {}
    public void procesa(Casos i){}
+   public void procesa(DRef exp) {} 
+    public void procesa(TRef t) {}     
+   public void procesa(TPointer t) {}     
+   public void procesa(INew i) {}     
+   public void procesa(IFree i) {}     
 }

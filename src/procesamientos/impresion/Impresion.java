@@ -46,7 +46,11 @@ import programa.Programa.IIfThen;
 import programa.Programa.IIfThenElse;
 import programa.Programa.ISwitchCase;
 import programa.Programa.Casos;
-import java.util.Map;
+import programa.Programa.DRef;
+import programa.Programa.TRef;
+import programa.Programa.TPointer;
+import programa.Programa.Dec;
+//import java.util.Map;
 
 
 public class Impresion extends Procesamiento {
@@ -421,5 +425,21 @@ public class Impresion extends Procesamiento {
     }
     System.out.print("}");    
    }
+   
+   public void procesa(DRef mem) {
+     System.out.print("(*");  
+     mem.mem().procesaCon(this);
+     System.out.print(")");
+     imprimeAtributos(mem);
+   } 
+   
+   public void procesa(TPointer t) {
+     System.out.print("(");  
+     t.tbase().procesaCon(this);
+     System.out.print("*)");
+   } 
+   public void procesa(TRef t) {
+     System.out.print(t.idtipo());
+   } 
    
 }   

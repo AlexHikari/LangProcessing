@@ -13,6 +13,9 @@ public abstract class Programa {
     private final Tipo TREAL;
     private final Tipo TSTRING;
     private final Tipo TCHAR;
+    private final Tipo TREF; 
+    private final Tipo TPUNTERO;
+    
 
 
     public Programa() {
@@ -23,6 +26,8 @@ public abstract class Programa {
         TREAL = new Real();
         TSTRING = new Stringg();
         TCHAR = new Char();
+        TREF = new TRef();
+        TPUNTERO = new TPointer();
     }
 
     public interface Tipo {
@@ -101,6 +106,27 @@ public abstract class Programa {
         public String toString() {
             return "CHAR";
         }
+    }
+    
+    public class  TRef implements Tipo{
+        
+        public void acepta(Procesamiento p){
+                p.procesa(this);
+        }
+        public String toString() {
+            return "REF";
+        }
+        
+    }
+    public class  TPointer implements Tipo{
+        
+        public void acepta(Procesamiento p){
+                p.procesa(this);
+        }
+        public String toString() {
+            return "PUNTERO";
+        }
+        
     }
 
     public class Prog {
@@ -468,8 +494,8 @@ public abstract class Programa {
         private Exp exp;
         private Inst cuerpo;
         private String enlaceFuente;
-        private Int dirPrimeraInst;
-        private Int dirUltimaInst;
+        private int dirPrimeraInstruccion;
+        private int dirInstruccionSiguiente;
         
         public Tipo tipo(){return tipo;}
         public Exp exp() {return exp;}
@@ -479,6 +505,16 @@ public abstract class Programa {
         public void procesaCon(Procesamiento p) {
           p.procesa(this);
         }
+        public void ponDirPrimeraInstruccion(int dir){
+            dirPrimeraInstruccion = dir;
+        }
+
+        public void ponDirInstruccionSiguiente(int dir){
+            dirInstruccionSiguiente = dir;
+        }
+        
+        public int dirPrimeraInstruccion(){ return dirPrimeraInstruccion;}
+        public int dirInstruccionSiguiente() {return dirInstruccionSiguiente;}
         
 
     }

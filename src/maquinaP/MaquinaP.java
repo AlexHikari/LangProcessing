@@ -7,11 +7,17 @@ import java.util.Stack;
 
 
 public class MaquinaP {
+   public static class EAccesoIlegitimo extends RuntimeException {} 
+   public static class EAccesoAMemoriaNoInicializada extends RuntimeException {} 
+   public static class EAccesoFueraDeRango extends RuntimeException {} 
    private final static String W_ACCESO="**** WARNING: Acceso a memoria sin inicializar"; 
-   private final Valor UNKNOWN; 
+   private final Valor UNKNOWN;    
+   private GestorMemoriaDinamica gestorMemoriaDinamica;
    private class Valor {
-      public int valorInt() {throw new UnsupportedOperationException();}  
-      public boolean valorBool() {throw new UnsupportedOperationException();} 
+      public int valorInt() {throw new EAccesoIlegitimo();}  
+      public boolean valorBool() {throw new EAccesoIlegitimo();} 
+      //public int valorInt() {throw new UnsupportedOperationException();}  
+      //public boolean valorBool() {throw new UnsupportedOperationException();} 
       public double valorReal() {throw new UnsupportedOperationException();}
       public char valorChar(){throw new UnsupportedOperationException();}
       public String valorString(){throw new UnsupportedOperationException();}
@@ -76,6 +82,7 @@ public class MaquinaP {
         return "?";
       }
    }
+   
    private List<Instruccion> codigoP;
    private Stack<Valor> pilaEvaluacion;
    private Valor[] datos; 
@@ -1354,6 +1361,51 @@ public class MaquinaP {
       public String toString() {return "¬irf("+dir+")";};
    }
    
+   private class IMueve implements Instruccion {
+      private int tam;
+      public IMueve(int tam) {
+        this.tam = tam;  
+      }
+      public void ejecuta() {
+            int dirOrigen = pilaEvaluacion.pop().valorInt();
+            int dirDestino = pilaEvaluacion.pop().valorInt();
+            if ((dirOrigen + (tam-1)) >= datos.length)
+                throw new EAccesoFueraDeRango();
+            if ((dirDestino + (tam-1)) >= datos.length)
+                throw new EAccesoFueraDeRango();
+            for (int i=0; i < tam; i++) 
+                datos[dirDestino+i] = datos[dirOrigen+i]; 
+            pc++;
+      } 
+      public String toString() {return "mueve("+tam+")";};
+   }
+   
+   private class IAlloc implements Instruccion {
+      private int tam;
+      public IAlloc(int tam) {
+        this.tam = tam;  
+      }
+      public void ejecuta() {
+        int inicio = gestorMemoriaDinamica.alloc(tam);
+        pilaEvaluacion.push(new ValorInt(inicio));
+        pc++;
+      } 
+      public String toString() {return "alloc("+tam+")";};
+   }
+
+   private class IDealloc implements Instruccion {
+      private int tam;
+      public IDealloc(int tam) {
+        this.tam = tam;  
+      }
+      public void ejecuta() {
+        int inicio = pilaEvaluacion.pop().valorInt();
+        gestorMemoriaDinamica.free(inicio,tam);
+        pc++;
+      } 
+      public String toString() {return "dealloc("+tam+")";};
+   }
+   
    public Instruccion sumInts() {return ISUMINTS;}
    public Instruccion sumReals() {return ISUMREALS;}
    public Instruccion concat() {return ICONCAT;}
@@ -1435,6 +1487,9 @@ public class MaquinaP {
    public Instruccion irA(int dir) {return new IIrA(dir);}
    public Instruccion irF(int dir) {return new IIrF(dir);}
    public Instruccion INIrF(int dir) {return new INIrF(dir);}
+   public Instruccion mueve(int tam) {return new IMueve(tam);}
+   public Instruccion alloc(int tam) {return new IAlloc(tam);} 
+   public Instruccion dealloc(int tam) {return new IDealloc(tam);} 
 
    public void addInstruccion(Instruccion i) {
       codigoP.add(i); 

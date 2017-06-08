@@ -43,7 +43,13 @@ import programa.Programa.ISwitchCase;
 import programa.Programa.Exp;
 import programa.Programa.Inst;
 import programa.Programa.Casos;
-import java.util.Map;
+import programa.Programa.DRef;
+import programa.Programa.IAsig;
+import programa.Programa.IFree;
+import programa.Programa.INew;
+import programa.Programa.TDefinido;
+import programa.Programa.TPointer;
+//import java.util.Map;
 
 
 public class GeneracionDeCodigo extends Procesamiento {
@@ -335,11 +341,30 @@ public class GeneracionDeCodigo extends Procesamiento {
    
    //Revisar!!!!!!!!!!!!!!!!!!!!!1
    public void procesa(ISwitchCase i){
-       for (Map.Entry<Exp,Inst> pair : i.cases().entrySet()) {
-           pair.getKey().procesaCon(this);
+       i.exp().procesaCon(this);
+       for (Casos c:i.casos()){
+           c.exp().procesaCon(this);
            maquina.addInstruccion(maquina.irF(i.dirInstruccionSiguiente()));
-           pair.getValue().procesaCon(this);
+           c.cuerpo().procesaCon(this);
        }
+       
      }
+   
+   public void procesa(DRef exp) {
+     exp.mem().procesaCon(this);
+     maquina.addInstruccion(maquina.apilaInd());
+   }
+   
+   public void procesa(INew i) {
+     i.mem().procesaCon(this);
+     maquina.addInstruccion(maquina.alloc(((TPointer)i.mem().tipo()).tbase().tamanio()));
+     maquina.addInstruccion(maquina.desapilaInd());
+   }
+   public void procesa(IFree i) {
+     i.mem().procesaCon(this);
+     maquina.addInstruccion(maquina.apilaInd());
+     maquina.addInstruccion(maquina.dealloc(((TPointer)i.mem().tipo()).tbase().tamanio()));
+   }
+
 }
 

@@ -46,12 +46,23 @@ import programa.Programa.IIfThenElse;
 import programa.Programa.ISwitchCase;
 import programa.Programa.Inst;
 import programa.Programa.Casos;
+import programa.Programa.DRef;
+import programa.Programa.IFree;
+import programa.Programa.INew;
+import programa.Programa.Tipo;
 
 
 public class ComprobacionTipos extends Procesamiento { 
+    private final static String ERROR_DREF="Se espera un objeto de tipo puntero";
+   private final static String ERROR_INDEX="Se espera un objeto de tipo array";
+   private final static String ERROR_INDEX_INDICE="La expresion indice debe ser de tipo INT";
+   private final static String ERROR_SELECT="Se espera un objeto de tipo registro";
+   private final static String ERROR_SELECT_CAMPO="El campo seleccionado no existe en el registro";
    private final static String ERROR_TIPO_OPERANDOS="Los tipos de los operandos no son correctos";
    private final static String ERROR_ASIG="Tipos no compatibles en asignacion";
    private final static String ERROR_COND="Tipo erroneo en condicion";
+   private final static String ERROR_NEW="El operando de New debe ser un puntero";
+   private final static String ERROR_FREE="El operando de Free debe ser un puntero";
    private Programa programa;
    private Errores errores;
    public ComprobacionTipos(Programa programa, Errores errores) {
@@ -569,6 +580,79 @@ public void procesa(ConvChar exp) {
                 errores.msg(caso.enlaceFuente()+":"+ERROR_COND);
             }                 
         }
-        i.ponTipo(programa.tipoOk());       
+        i.ponTipo(programa.tipoOk());    
+        
+        }
+    
+      public void procesa(DRef p) {
+       p.mem().procesaCon(this);
+       if(I.esPointer(p.mem().tipo())) {
+         p.ponTipo(I.pointer(p.mem().tipo()).tbase());
+       }
+       else {
+           if(! p.mem().tipo().equals(programa.tipoError())) {
+              errores.msg(p.enlaceFuente()+":"+ERROR_DREF); 
+           }
+           p.ponTipo(programa.tipoError());
+       }
+   } 
+      public void procesa(INew i) {
+    i.mem().procesaCon(this);
+    if (I.esPointer(i.mem().tipo())) {
+       i.ponTipo(programa.tipoOk()); 
+    }
+    else {
+       if (! i.mem().tipo().equals(programa.tipoError())) {
+             errores.msg(i.enlaceFuente()+":"+ERROR_NEW);
+       }
+       i.ponTipo(programa.tipoError());
+    }
+   }
+   
+   public void procesa(IFree i) {
+    i.mem().procesaCon(this);
+    if (I.esPointer(i.mem().tipo())) {
+       i.ponTipo(programa.tipoOk()); 
+    }
+    else {
+       if (! i.mem().tipo().equals(programa.tipoError())) {
+             errores.msg(i.enlaceFuente()+":"+ERROR_FREE);
+       }
+       i.ponTipo(programa.tipoError());
+    }
+   }
+   private static class Tipox2 {
+      private Tipo t1;
+      private Tipo t2;
+      public Tipox2 (Tipo t1, Tipo t2) {
+       this.t1 = t1;
+       this.t2 = t2;
       }
+      public boolean equals(Object o) {
+         return (o instanceof Tipox2) &&
+                t1.equals(((Tipox2)o).t1) &&
+                t2.equals(((Tipox2)o).t2);                 
+      }
+      public int hashCode() {
+        return t1.hashCode()+t2.hashCode();
+      }
+   }
+   
+   private boolean sonCompatibles(Tipo t1, Tipo t2) {
+       return sonCompatibles(t1,t2,new HashSet<Tipox2>()); 
+   }
+   private boolean sonCompatibles(Tipo t1, Tipo t2, Set<Tipox2> considerados) {
+      t1 = I.tipoBase(t1);
+      t2 = I.tipoBase(t2);
+      if(considerados.add(new Tipox2(t1,t2))) {
+         if(t1.equals(t2)) return true;
+         else if (I.esPointer(t1) && I.esPointer(t2)) {
+              return sonCompatibles(I.pointer(t1).tbase(),I.pointer(t2).tbase(),considerados);
+         }     
+         else return false; 
+      }
+      else {
+        return true;  
+      }
+   } 
 }

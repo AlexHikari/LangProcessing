@@ -41,7 +41,11 @@ import programa.Programa.IWhile;
 import programa.Programa.IDoWhile;
 import programa.Programa.IIfThenElse;
 import programa.Programa.ISwitchCase;
+import programa.Programa.Casos;
 import programa.Programa.Inst;
+import programa.Programa.DRef;
+import programa.Programa.IFree;
+import programa.Programa.INew;
 
 
 public class Etiquetado extends Procesamiento {
@@ -277,19 +281,26 @@ public class Etiquetado extends Procesamiento {
       i.ponDirInstruccionSiguiente(etq);
    }
    public void procesa(ISwitchCase i){
-          int inst = 0;
           i.ponDirPrimeraInstruccion(etq);
-          for (Map.Entry<Exp,Inst> pair : i.cases().entrySet()) {
-          pair.getKey().procesaCon(this);
+          i.exp().procesaCon(this);
+          etq++;
+          for (Casos c:i.casos()){
+              c.exp().procesaCon(this);
+              etq++;
+              c.cuerpo().procesaCon(this);
           //ir_f(...)
-          etq++;
-          i.ponDirSig(inst);
-          pair.getValue().procesaCon(this);
-          etq++;
-        }
-   
+              etq++;
+          }    
    }
    
+   public void procesa(Casos i){
+       i.ponDirPrimeraInstruccion(etq);
+       i.exp().procesaCon(this);
+       etq++;
+       i.cuerpo().procesaCon(this);
+       etq++;
+       i.ponDirInstruccionSiguiente(etq);
+   }
    
    public void procesa(ILee i) {
        i.ponDirPrimeraInstruccion(etq);
@@ -302,6 +313,29 @@ public class Etiquetado extends Procesamiento {
        i.exp().procesaCon(this);
        // Escribe
        i.ponDirInstruccionSiguiente(++etq);
+   }
+   
+   public void procesa(DRef exp) {
+     exp.ponDirPrimeraInstruccion(etq);
+     exp.mem().procesaCon(this);
+     // apilaind
+     etq++;
+     exp.ponDirInstruccionSiguiente(etq);
+   }
+   
+   public void procesa(INew i) {
+     i.ponDirPrimeraInstruccion(etq);
+     i.mem().procesaCon(this);  
+     // alloc desapilaind
+     etq +=2;
+     i.ponDirInstruccionSiguiente(etq);     
+   }
+   public void procesa(IFree i) {
+     i.ponDirPrimeraInstruccion(etq);
+     i.mem().procesaCon(this);  
+     // apilaind dealloc 
+     etq +=2;
+     i.ponDirInstruccionSiguiente(etq);     
    }
 }
 

@@ -44,10 +44,21 @@ import programa.Programa.IDoWhile;
 import programa.Programa.ISwitchCase;
 import programa.Programa.Inst;
 import programa.Programa.Casos;
+import programa.Programa.DRef;
+import programa.Programa.IFree;
+import programa.Programa.INew;
+import programa.Programa.TPointer;
+import programa.Programa.TRef;
+import programa.Programa.DecTipo;
 
 public class Vinculacion extends Procesamiento {
-   private final static String ERROR_ID_DUPLICADO="Identificador ya declarado";
-   private final static String ERROR_ID_NO_DECLARADO="Identificador no declarado";
+   private final static String ERROR_ID_TIPO_DUPLICADO="Identificador de tipo ya declarado";
+   private final static String ERROR_ID_VAR_DUPLICADO="Variable ya declarada";
+   private final static String ERROR_ID_CAMPO_DUPLICADO="Campo duplicado en tipo registro";
+   private final static String ERROR_ID_TIPO_NO_DECLARADO="Identificador de tipo no declarado";
+   private final static String ERROR_ID_VAR_NO_DECLARADO="Variable no declarada";
+   private Map<String,DecVar> variables;
+   private Map<String,DecTipo> tipos;
    private Map<String,DecVar> tablaDeSimbolos;
    private boolean error;
    private Errores errores;
@@ -56,6 +67,28 @@ public class Vinculacion extends Procesamiento {
       this.errores = errores;
       error = false;
    }
+   private class ComplecionRefs extends Procesamiento {
+     public void procesa(DecTipo d) {
+        d.tipoDec().procesaCon(this);
+     }
+    public void procesa(DecVar d) {
+       d.tipoDec().procesaCon(this);
+    }     
+   public void procesa(TPointer p) {
+      p.tbase().procesaCon(this);
+   }
+   public void procesa(TRef r) {
+       DecTipo d = tipos.get(r.idtipo());
+       if (d == null) {
+             error = true;
+             errores.msg(r.enlaceFuente()+":"+ERROR_ID_TIPO_NO_DECLARADO+"("+r.idtipo()+")");             
+        }
+       else {
+         r.ponDeclaracion(d);
+       }
+   }
+  }   
+   
    public void procesa(Prog p) {
      for (Dec d: p.decs())
          d.procesaCon(this);
@@ -221,5 +254,41 @@ public class Vinculacion extends Procesamiento {
         caso.cuerpo().procesaCon(this);
         
     }
+   }
+   public void procesa(DecTipo d) {
+       if(tipos.containsKey(d.idtipo())) {
+         error = true;
+         errores.msg(d.enlaceFuente()+":"+ERROR_ID_TIPO_DUPLICADO+"("+d.idtipo()+")");
+       }
+       else {
+          tipos.put(d.idtipo(),d); 
+          d.tipoDec().procesaCon(this);          
+       }
+   }
+   public void procesa(TPointer p) {
+       if (! I.esRef(p.tbase())) {
+           p.tbase().procesaCon(this);
+       }    
+   }
+   public void procesa(TRef r) {
+       DecTipo d = tipos.get(r.idtipo());
+       if (d == null) {
+             error = true;
+             errores.msg(r.enlaceFuente()+":"+ERROR_ID_TIPO_NO_DECLARADO+"("+r.idtipo()+")");             
+        }
+       else {
+         r.ponDeclaracion(d);
+       }
+   }
+   
+   public void procesa(INew i) {
+    i.mem().procesaCon(this);   
+   }     
+   public void procesa(IFree i) {
+    i.mem().procesaCon(this);   
+   }     
+   
+   public void procesa(DRef d) {
+      d.mem().procesaCon(this);
    }
 }
